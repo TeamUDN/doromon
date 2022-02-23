@@ -7,7 +7,10 @@ app = Flask(__name__)
 def index():
     #return "Hello World"
     return render_template("index.html")
-  
+
+@app.route('/draw')
+def draw():
+    return render_template("draw.html")
 
 if __name__ == '__main__':
   app.run()

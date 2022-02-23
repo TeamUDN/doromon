@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>お絵描き DEMO</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <style>
+  .option{
+        width: 250px;
+      }
+  .color > a{
+        display: inline - block;
+        width: 20px;
+        height: 20px;
+      }
+  .black{
+        background-color: #000000;
+      }
+  .red{
+        background-color: #ff0000;
+      }
+  .blue{
+        background-color: #0000ff;
+      }
+</style>
+</head >
+        <body>
+          <canvas id="canvas" width="500" height="300" style="border: solid 1px #000;box-sizing: border-box;"></canvas>
+          <div class="option">
+            <div class="color">
+              色：
+              <a href="" class="black" data-color="0, 0, 0, 1"></a>
+              <a href="" class="red" data-color="255, 0, 0, 1"></a>
+              <a href="" class="blue" data-color="0, 0, 255, 1"></a>
+            </div>
+            <div class="bold">
+              太さ：
+              <a href="" class="small" data-bold="1">小</a>
+              <a href="" class="middle" data-bold="5">中</a>
+              <a href="" class="large" data-bold="10">大</a>
+            </div>
+          </div>
+          <input type="button" value="clear" id="clear">
+            <a id="download" href="#" download="canvas.jpg">ダウンロード</a>
+            <div id="result"><img src=""></div>
+
+            <script>
+    // canvas
+              var cnvs = document.getElementById('canvas');
+              var ctx = cnvs.getContext('2d');
+
+              // 変数宣言
+              const cnvWidth = 500;
+              const cnvHeight = 500;
+              var cnvColor = "255, 0, 0, 1";  // 線の色
+              var cnvBold = 5;  // 線の太さ
+              var clickFlg = 0;  // クリック中の判定 1:クリック開始 2:クリック中
+              var bgColor = "rgb(255,255,255)";
+
+              // canvasの背景色を設定(指定がない場合にjpeg保存すると背景が黒になる)
+              setBgColor();
+
+              // canvas上でのイベント
+              $("#canvas").mousedown(function(){
+                clickFlg = 1; // マウス押下開始
+    }).mouseup(function(){
+                clickFlg = 0; // マウス押下終了
+    }).mousemove(function(e){
+      // マウス移動処理
+      if(!clickFlg) return false;
+              draw(e.offsetX, e.offsetY);
+    });
+
+              // 描画処理
+              function draw(x, y) {
+                ctx.lineWidth = cnvBold;
+              ctx.strokeStyle = 'rgba('+cnvColor+')';
+              // 初回処理の判定
+              if (clickFlg == "1") {
+                clickFlg = "2";
+              ctx.beginPath();
+              ctx.lineCap = "round";  //　線を角丸にする
+              ctx.moveTo(x, y);
+      } else {
+                ctx.lineTo(x, y);
+      }
+              ctx.stroke();
+    };
+
+              // 色の変更
+              $(".color a").click(function(){
+                cnvColor = $(this).data("color");
+              return false;
+    });
+
+              // 線の太さ変更
+              $(".bold a").click(function(){
+                cnvBold = $(this).data("bold");
+              return false;
+    });
+
+              // 描画クリア
+              $("#clear").click(function(){
+                ctx.clearRect(0, 0, cnvWidth, cnvHeight);
+              setBgColor();
+    });
+
+              // canvasを画像で保存
+              $("#download").click(function(){
+                canvas = document.getElementById('canvas');
+              var base64 = canvas.toDataURL("image/jpeg");
+              document.getElementById("download").href = base64;
+    });
+
+              function setBgColor(){
+                // canvasの背景色を設定(指定がない場合にjpeg保存すると背景が黒になる)
+                ctx.fillStyle = bgColor;
+              ctx.fillRect(0,0,cnvWidth,cnvHeight);
+    }
+    </script>
+    </body>
+
+</html>
