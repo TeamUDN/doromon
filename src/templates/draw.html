@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>お絵描き DEMO</title>
+  <title>お絵描き</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <style>
   .option{
@@ -16,10 +16,10 @@
           <div class="option">
           </div>
           <input type="button" value="clear" id="clear">
-            <a id="download" href="#" download="canvas.jpg">ダウンロード</a>
+            <button id="submit">送信</button>
             <div id="result"><img src=""></div>
             <script>
-    // canvas
+              // canvas
               var cnvs = document.getElementById('canvas');
               var ctx = cnvs.getContext('2d');
 
@@ -37,13 +37,13 @@
               // canvas上でのイベント
               $("#canvas").mousedown(function(){
                 clickFlg = 1; // マウス押下開始
-    }).mouseup(function(){
-                clickFlg = 0; // マウス押下終了
-    }).mousemove(function(e){
-      // マウス移動処理
-      if(!clickFlg) return false;
-              draw(e.offsetX, e.offsetY);
-    });
+                }).mouseup(function(){
+                            clickFlg = 0; // マウス押下終了
+                }).mousemove(function(e){
+                  // マウス移動処理
+                  if(!clickFlg) return false;
+                          draw(e.offsetX, e.offsetY);
+                });
 
               // 描画処理
               function draw(x, y) {
@@ -68,10 +68,28 @@
     });
 
               // canvasを画像で保存
-              $("#download").click(function(){
+              $("#submit").click(function(){
                 canvas = document.getElementById('canvas');
               var base64 = canvas.toDataURL("image/png");
-              document.getElementById("download").href = base64;
+              //document.getElementById("download").href = base64;
+
+              var fData = new FormData();
+                fData.append('img', base64);
+                $.ajax({
+                  url: '/draw_post',
+                  type: 'POST',
+                  data: fData,
+                  contentType: false,
+                  processData: false,
+                  success: function (data, dataType) {
+                    //非同期で通信成功時に読み出される [200 OK 時]
+                    console.log('Success', data);
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    //非同期で通信失敗時に読み出される
+                    console.log('Error : ' + errorThrown);
+                  }
+                });
     });
 
               function setBgColor(){
