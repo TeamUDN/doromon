@@ -1,2 +1,5 @@
 __pycache__
 node_modules
+
+src/static/webpack/*
+.DS_Store
