@@ -12,3 +12,12 @@ docker images
 ```
 docker rmi <IMAGE ID>　-f
 ```
+
+## webpackの開発用ビルド
+```
+npm run watch
+```
+## webpackのビルド
+```
+npm run build
+```
