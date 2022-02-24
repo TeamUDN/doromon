@@ -24,7 +24,7 @@ def index():
     #return render_template("index.html")
     return render_template('index.html', css='top')
 
-@app.route('/draw')
+@app.route('/draw', methods=['POST'])
 def draw():
     re=0
     pr=0
