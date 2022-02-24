@@ -1,46 +1,49 @@
 {% extends "layout.html" %}{% block content %}
 
-<img class="logo" src="../static/img/logo.png" alt="どろもん！">
+<div id="topPage">
+    <img class="logo" src="../static/img/logo.png" alt="どろもん！">
 
-<form action="/draw" method="POST">
-    <div id="soundCheckbox">
-        <input type="checkbox" id="sound" class="checkbox" name="sound" value="1">
-        <label for="sound" class="checkbox note_text">音楽の再生を許可しますか？</label>
+    <form action="/draw" method="POST">
+        <div id="soundCheckbox">
+            <input type="checkbox" id="sound" class="checkbox" name="sound" value="1" @click="soundPlay">
+            <label for="sound" class="checkbox note_text">音楽の再生を許可しますか？</label>
+        </div>
+        <button type="submit">はじめる</button>
+    </form>
+
+    <!-- 画像のループ -->
+    <div class="loop_wrap">
+        <ul>
+            <li><img src="../static/img/top/hikouki.png" alt=""></li>
+            <li><img src="../static/img/top/hone.png" alt=""></li>
+            <li><img src="../static/img/top/inu.png" alt=""></li>
+            <li><img src="../static/img/top/iruka.png" alt=""></li>
+            <li><img src="../static/img/top/kasa.png" alt=""></li>
+            <li><img src="../static/img/top/kuma.png" alt=""></li>
+            <li><img src="../static/img/top/monariza.png" alt=""></li>
+            <li><img src="../static/img/top/same.png" alt=""></li>
+            <li><img src="../static/img/top/sensuikan.png" alt=""></li>
+            <li><img src="../static/img/top/sentakuki.png" alt=""></li>
+            <li><img src="../static/img/top/simauma.png" alt=""></li>
+            <li><img src="../static/img/top/tatumaki.png" alt=""></li>
+        </ul>
+        <ul>
+            <li><img src="../static/img/top/hikouki.png" alt=""></li>
+            <li><img src="../static/img/top/hone.png" alt=""></li>
+            <li><img src="../static/img/top/inu.png" alt=""></li>
+            <li><img src="../static/img/top/iruka.png" alt=""></li>
+            <li><img src="../static/img/top/kasa.png" alt=""></li>
+            <li><img src="../static/img/top/kuma.png" alt=""></li>
+            <li><img src="../static/img/top/monariza.png" alt=""></li>
+            <li><img src="../static/img/top/same.png" alt=""></li>
+            <li><img src="../static/img/top/sensuikan.png" alt=""></li>
+            <li><img src="../static/img/top/sentakuki.png" alt=""></li>
+            <li><img src="../static/img/top/simauma.png" alt=""></li>
+            <li><img src="../static/img/top/tatumaki.png" alt=""></li>
+        </ul>
     </div>
-    <button type="submit">はじめる</button>
-</form>
-
-<!-- 画像のループ -->
-<div class="loop_wrap">
-    <ul>
-        <li><img src="../static/img/top/hikouki.png" alt=""></li>
-        <li><img src="../static/img/top/hone.png" alt=""></li>
-        <li><img src="../static/img/top/inu.png" alt=""></li>
-        <li><img src="../static/img/top/iruka.png" alt=""></li>
-        <li><img src="../static/img/top/kasa.png" alt=""></li>
-        <li><img src="../static/img/top/kuma.png" alt=""></li>
-        <li><img src="../static/img/top/monariza.png" alt=""></li>
-        <li><img src="../static/img/top/same.png" alt=""></li>
-        <li><img src="../static/img/top/sensuikan.png" alt=""></li>
-        <li><img src="../static/img/top/sentakuki.png" alt=""></li>
-        <li><img src="../static/img/top/simauma.png" alt=""></li>
-        <li><img src="../static/img/top/tatumaki.png" alt=""></li>
-    </ul>
-    <ul>
-        <li><img src="../static/img/top/hikouki.png" alt=""></li>
-        <li><img src="../static/img/top/hone.png" alt=""></li>
-        <li><img src="../static/img/top/inu.png" alt=""></li>
-        <li><img src="../static/img/top/iruka.png" alt=""></li>
-        <li><img src="../static/img/top/kasa.png" alt=""></li>
-        <li><img src="../static/img/top/kuma.png" alt=""></li>
-        <li><img src="../static/img/top/monariza.png" alt=""></li>
-        <li><img src="../static/img/top/same.png" alt=""></li>
-        <li><img src="../static/img/top/sensuikan.png" alt=""></li>
-        <li><img src="../static/img/top/sentakuki.png" alt=""></li>
-        <li><img src="../static/img/top/simauma.png" alt=""></li>
-        <li><img src="../static/img/top/tatumaki.png" alt=""></li>
-    </ul>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="../static/webpack/top.js"></script>
 {% endblock %}
