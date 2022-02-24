@@ -30,7 +30,7 @@ def draw():
     pr=0
     ste=0
     cls_ste=0
-    return render_template("draw.html",r=re,p=pr,s=ste,cs=cls_ste)
+    return render_template("draw.html",r=re,p=pr,s=ste,cs=cls_ste, css='draw')
 
 
 @app.route('/draw_post', methods=['POST'])
@@ -50,7 +50,7 @@ def set_data():
     ste = status(re,pr)
     cls_ste = get_cls_status(re,pr)
 
-    return render_template('draw.html', r=re,p=pr,s=ste,cs=cls_ste)
+    return render_template('draw.html', r=re,p=pr,s=ste,cs=cls_ste, css='draw')
 
 
 if __name__ == '__main__':
