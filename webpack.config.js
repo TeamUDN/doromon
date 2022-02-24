@@ -7,7 +7,7 @@ module.exports = {
   //mode: 'production',
   entry: {
     'top': './src/entry/js/main.js',
-    'top.css': './src/entry/style/main.scss',
+    'style.css': './src/entry/style/main.scss',
   },
   output: {
     path: path.resolve(__dirname, 'src/static/webpack/'),
