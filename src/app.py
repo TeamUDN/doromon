@@ -19,5 +19,9 @@ def index():
     #return render_template("index.html")
     return render_template('index.html', r=re,p=pr,s=ste,cs=cls_ste)
 
+@app.route('/draw')
+def draw():
+    return render_template("draw.html")
+
 if __name__ == '__main__':
   app.run()
