@@ -1,1 +1,23 @@
 /* 変数宣言 */
+$main-red: #C64756;
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  width: 100vw;
+  height: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: auto;
+  background-color: $main-red;
+  p {
+    color: #ffffff;
+    text-align: center;
+  }
+}
