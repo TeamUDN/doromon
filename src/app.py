@@ -1,7 +1,7 @@
 from flask import Flask,render_template,request
 import base64
 from PIL import Image
-import io 
+import io
 import numpy as np
 
 import datetime
@@ -18,15 +18,19 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     #return "Hello World"
-    re,pr=pred("anjel.png")
-    ste = status(re,pr)
-    cls_ste = get_cls_status(re,pr)
+    #re,pr=pred("anjel.png")
+    #ste = status(re,pr)
+    #cls_ste = get_cls_status(re,pr)
     #return render_template("index.html")
-    return render_template('index.html', r=re,p=pr,s=ste,cs=cls_ste,css='top')
+    return render_template('index.html', css='top')
 
 @app.route('/draw')
 def draw():
-    return render_template("draw.html")
+    re=0
+    pr=0
+    ste=0
+    cls_ste=0
+    return render_template("draw.html",r=re,p=pr,s=ste,cs=cls_ste)
 
 
 @app.route('/draw_post', methods=['POST'])
@@ -40,13 +44,13 @@ def set_data():
     dt_now = datetime.datetime.now()
     img_name=dt_now.strftime('%Y-%m-%d%H%M%S')+".png"
 
-    img.save(f'/projects/static/img/draw_img/{img_name}') 
+    img.save(f'/projects/static/img/draw_img/{img_name}')
 
     re,pr=pred(img)
     ste = status(re,pr)
     cls_ste = get_cls_status(re,pr)
 
-    return render_template('index.html', r=re,p=pr,s=ste,cs=cls_ste,im_n=img_name)
+    return render_template('draw.html', r=re,p=pr,s=ste,cs=cls_ste)
 
 
 if __name__ == '__main__':
