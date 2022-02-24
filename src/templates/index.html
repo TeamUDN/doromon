@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html>
-    <head>
-    </head>
-    <body>
-    <h1>Webアプリ初心者のFlaskチュートリアル</h1>
+{% extends "layout.html" %}{% block content %}
 
-    
-    <script>
-        radius_data1 = {{ r | tojson}};
-        radius_data2 = {{ p | tojson}};
-        radius_data3 = {{ s | tojson}};
-        radius_data4 = {{ cs | tojson}};
-        radius_data5 = {{ im_n | tojson}};
-        console.log(radius_data1)
-        console.log(radius_data2)
-        console.log(radius_data3)
-        console.log(radius_data4)
-        console.log(radius_data5)
-    </script>
-    
+<img class="logo" src="../static/img/logo.png" alt="どろもん！">
 
-    </body>
-</html>
+
+<script>
+    radius_data1 = {{ r | tojson }};
+    radius_data2 = {{ p | tojson }};
+    radius_data3 = {{ s | tojson }};
+    radius_data4 = {{ cs | tojson }};
+    console.log(radius_data1)
+    console.log(radius_data2)
+    console.log(radius_data3)
+    console.log(radius_data4)
+</script>
+
+{% endblock %}

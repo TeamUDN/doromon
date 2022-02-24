@@ -1,103 +1,92 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}{% block content %}
 
-<head>
-  <meta charset="utf-8">
-  <title>お絵描き</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <style>
-  .option{
-        width: 250px;
-      }
-</style>
-</head >
-        <body>
-          <canvas id="canvas" width="500" height="500" style="border: solid 1px #000;box-sizing: border-box;"></canvas>
-          <div class="option">
-          </div>
-          <input type="button" value="clear" id="clear">
-            <button id="submit">送信</button>
-            <div id="result"><img src=""></div>
-            <script>
-              // canvas
-              var cnvs = document.getElementById('canvas');
-              var ctx = cnvs.getContext('2d');
 
-              // 変数宣言
-              const cnvWidth = 500;
-              const cnvHeight = 500;
-              var cnvColor = "0, 0, 0, 1";  // 線の色
-              var cnvBold = 3;  // 線の太さ
-              var clickFlg = 0;  // クリック中の判定 1:クリック開始 2:クリック中
-              var bgColor = "rgb(255,255,255)";
+<canvas id="canvas" width="500" height="500" style="border: solid 1px #000;box-sizing: border-box;"></canvas>
+<div class="option"></div>
+<input type="button" value="clear" id="clear">
+<button id="submit">送信</button>
+<div id="result"><img src=""></div>
 
-              // canvasの背景色を設定
-              setBgColor();
 
-              // canvas上でのイベント
-              $("#canvas").mousedown(function(){
-                clickFlg = 1; // マウス押下開始
-                }).mouseup(function(){
-                            clickFlg = 0; // マウス押下終了
-                }).mousemove(function(e){
-                  // マウス移動処理
-                  if(!clickFlg) return false;
-                          draw(e.offsetX, e.offsetY);
-                });
+<script>
+  // canvas
+  var cnvs = document.getElementById('canvas');
+  var ctx = cnvs.getContext('2d');
 
-              // 描画処理
-              function draw(x, y) {
-                ctx.lineWidth = cnvBold;
-              ctx.strokeStyle = 'rgba('+cnvColor+')';
-              // 初回処理の判定
-              if (clickFlg == "1") {
-                clickFlg = "2";
-              ctx.beginPath();
-              ctx.lineCap = "round";  //　線を角丸にする
-              ctx.moveTo(x, y);
-      } else {
-                ctx.lineTo(x, y);
-      }
-              ctx.stroke();
-    };
+  // 変数宣言
+  const cnvWidth = 500;
+  const cnvHeight = 500;
+  var cnvColor = "0, 0, 0, 1";  // 線の色
+  var cnvBold = 3;  // 線の太さ
+  var clickFlg = 0;  // クリック中の判定 1:クリック開始 2:クリック中
+  var bgColor = "rgb(255,255,255)";
 
-              // 描画クリア
-              $("#clear").click(function(){
-                ctx.clearRect(0, 0, cnvWidth, cnvHeight);
-              setBgColor();
+  // canvasの背景色を設定
+  setBgColor();
+
+  // canvas上でのイベント
+  $("#canvas").mousedown(function(){
+    clickFlg = 1; // マウス押下開始
+    }).mouseup(function(){
+      clickFlg = 0; // マウス押下終了
+    }).mousemove(function(e){
+      // マウス移動処理
+      if(!clickFlg) return false;
+      draw(e.offsetX, e.offsetY);
     });
 
-              // canvasを画像で保存
-              $("#submit").click(function(){
-                canvas = document.getElementById('canvas');
-              var base64 = canvas.toDataURL("image/png");
-              //document.getElementById("download").href = base64;
-
-              var fData = new FormData();
-                fData.append('img', base64);
-                $.ajax({
-                  url: '/draw_post',
-                  type: 'POST',
-                  data: fData,
-                  contentType: false,
-                  processData: false,
-                  success: function (data, dataType) {
-                    //非同期で通信成功時に読み出される [200 OK 時]
-                    console.log('Success', data);
-                  },
-                  error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    //非同期で通信失敗時に読み出される
-                    console.log('Error : ' + errorThrown);
-                  }
-                });
-    });
-
-              function setBgColor(){
-                // canvasの背景色を設定
-                ctx.fillStyle = bgColor;
-              ctx.fillRect(0,0,cnvWidth,cnvHeight);
+      // 描画処理
+      function draw(x, y) {
+        ctx.lineWidth = cnvBold;
+      ctx.strokeStyle = 'rgba('+cnvColor+')';
+      // 初回処理の判定
+      if (clickFlg == "1") {
+        clickFlg = "2";
+      ctx.beginPath();
+      ctx.lineCap = "round";  //　線を角丸にする
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
     }
-    </script>
-    </body>
+    ctx.stroke();
+  };
 
-</html>
+    // 描画クリア
+    $("#clear").click(function(){
+      ctx.clearRect(0, 0, cnvWidth, cnvHeight);
+    setBgColor();
+  });
+
+  // canvasを画像で保存
+  $("#submit").click(function(){
+    canvas = document.getElementById('canvas');
+  var base64 = canvas.toDataURL("image/png");
+  //document.getElementById("download").href = base64;
+
+  var fData = new FormData();
+    fData.append('img', base64);
+    $.ajax({
+      url: '/draw_post',
+      type: 'POST',
+      data: fData,
+      contentType: false,
+      processData: false,
+      success: function (data, dataType) {
+        //非同期で通信成功時に読み出される [200 OK 時]
+        console.log('Success', data);
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //非同期で通信失敗時に読み出される
+        console.log('Error : ' + errorThrown);
+      }
+    });
+  });
+
+  function setBgColor(){
+    // canvasの背景色を設定
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0,0,cnvWidth,cnvHeight);
+  }
+</script>
+
+{% endblock %}
