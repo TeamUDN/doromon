@@ -3,59 +3,59 @@
     {
       "name": "airplane",
       "status": {
-      "attack": 10,
+      "attack": 20,
       "defence": 10,
-      "speed": 100,
-      "hp":100,
-      "attribute" : 2
+      "speed": 30,
+      "hp":400,
+      "attribute" : 0
       }
     },
     {
       "name": "angel",
       "status": {
-      "attack": 0,
-      "defence": 100,
-      "speed": 30,
-      "hp":30,
-      "attribute" : 2
+      "attack": 20,
+      "defence": 40,
+      "speed": 10,
+      "hp":500,
+      "attribute" : 0
       }
     },
     {
       "name": "dog",
       "status": {
-      "attack": 50,
-      "defence": 0,
-      "speed": 30,
-      "hp":30,
-      "attribute" : 0
+      "attack": 40,
+      "defence": 20,
+      "speed": 20,
+      "hp":200,
+      "attribute" : 1
       }
     },
     {
       "name": "dolphin",
       "status": {
-      "attack": 30,
-      "defence": 30,
-      "speed": 30,
-      "hp":30,
-      "attribute" : 1
+      "attack": 20,
+      "defence": 10,
+      "speed": 40,
+      "hp":300,
+      "attribute" : 2
       }
     },
     {
       "name": "shark",
       "status": {
-      "attack": 100,
+      "attack": 60,
       "defence": 0,
-      "speed": 50,
-      "hp":30,
-      "attribute" : 1
+      "speed": 40,
+      "hp":200,
+      "attribute" : 2
       }
     },
     {
       "name": "skull",
       "status": {
-      "attack": 100,
-      "defence": 0,
-      "speed": 10,
+      "attack": 5,
+      "defence": 60,
+      "speed": 30,
       "hp":50,
       "attribute" : 0
       }
@@ -63,100 +63,100 @@
     {
       "name": "snowman",
       "status": {
-      "attack": 0,
-      "defence": 70,
-      "speed": 10,
-      "hp":100,
-      "attribute" : 1
+      "attack": 30,
+      "defence": -10,
+      "speed": 50,
+      "hp":500,
+      "attribute" : 2
       }
     },
     {
       "name": "submarine",
       "status": {
-      "attack": 50,
-      "defence": 50,
-      "speed": 10,
-      "hp":50,
-      "attribute" : 1
+      "attack": 20,
+      "defence": 60,
+      "speed": -20,
+      "hp":400,
+      "attribute" : 2
       }
     },
     {
       "name": "teddy-bear",
       "status": {
       "attack": 10,
-      "defence": 50,
-      "speed": 50,
-      "hp":50,
-      "attribute" : 0
+      "defence": 40,
+      "speed": 10,
+      "hp":400,
+      "attribute" : 1
       }
     },
     {
       "name": "The Eiffel Tower",
       "status": {
-      "attack": 200,
-      "defence": 0,
-      "speed": 0,
-      "hp":5,
-      "attribute" : 0
+      "attack": 10,
+      "defence": 50,
+      "speed": -20,
+      "hp":800,
+      "attribute" : 1
       }
     },
     {
       "name": "The Mona Lisa",
       "status": {
-      "attack": 100,
-      "defence": 100,
-      "speed": 0,
-      "hp":5,
+      "attack": 60,
+      "defence": -20,
+      "speed": 30,
+      "hp":400,
       "attribute" : 0
       }
     },
     {
       "name": "tiger",
       "status": {
-      "attack": 100,
+      "attack": 60,
       "defence": 10,
-      "speed": 100,
-      "hp":50,
-      "attribute" : 0
+      "speed": 10,
+      "hp":400,
+      "attribute" : 1
       }
     },
     {
       "name": "tornado",
       "status": {
-      "attack": 100,
-      "defence": 20,
-      "speed": 100,
-      "hp":10,
-      "attribute" : 2
+      "attack": 30,
+      "defence": 0,
+      "speed": 60,
+      "hp":100,
+      "attribute" : 0
       }
     },
     {
       "name": "umbrella",
       "status": {
-      "attack": 50,
-      "defence": 50,
-      "speed": 0,
-      "hp":5,
+      "attack": 60,
+      "defence": 10,
+      "speed": 10,
+      "hp":100,
       "attribute" : 1
       }
     },
     {
       "name": "washing machine",
       "status": {
-      "attack": 50,
-      "defence": 50,
+      "attack": 45,
+      "defence": 10,
       "speed": 0,
-      "hp":30,
-      "attribute" : 1
+      "hp":450,
+      "attribute" : 2
       }
     },
     {
       "name": "zebra",
       "status": {
-      "attack": 30,
-      "defence": 30,
-      "speed": 50,
-      "hp":30,
+      "attack": 20,
+      "defence": 0,
+      "speed": 60,
+      "hp":200,
       "attribute" : 2
       }
     }
