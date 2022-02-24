@@ -6,7 +6,7 @@ module.exports = {
   mode: 'development',
   //mode: 'production',
   entry: {
-    'top': './src/entry/js/main.js',
+    'top': './src/entry/js/pages/top.js',
     'top.css': './src/entry/style/pages/top.scss',
     'draw.css': './src/entry/style/pages/draw.scss',
   },
