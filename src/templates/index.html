@@ -4,7 +4,19 @@
     </head>
     <body>
     <h1>Webアプリ初心者のFlaskチュートリアル</h1>
-    <script src="static/main2.js"></script>
+
     
+    <script>
+        radius_data1 = {{ r | tojson}};
+        radius_data2 = {{ p | tojson}};
+        radius_data3 = {{ s | tojson}};
+        radius_data4 = {{ cs | tojson}};
+        console.log(radius_data1)
+        console.log(radius_data2)
+        console.log(radius_data3)
+        console.log(radius_data4)
+    </script>
+    
+
     </body>
 </html>
