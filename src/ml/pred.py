@@ -1,5 +1,5 @@
 
-def pred(img_name):
+def pred(img):
     import torch
     import torch.nn as nn
 
@@ -22,18 +22,17 @@ def pred(img_name):
     model = ResNet(num_classes=16).to(device)
     model.load_state_dict(torch.load(model_path, map_location=torch.device(device)))
     model.eval()
-    print("ok")
+
 
     m = nn.Softmax(dim=1)
 
 
-    image = Image.open(f"/projects/static/img/demo/{img_name}").convert('L')
+    image = img
                 
     image = image.resize((28, 28))
     data = np.asarray(image)
     data=data-255
 
-    print("ok2")
 
     t = torch.from_numpy(data.astype(np.float32)).clone()
     out = model(t.unsqueeze(0).to(device))
