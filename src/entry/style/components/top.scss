@@ -1,3 +1,43 @@
 .logo {
   width: 30rem;
 }
+
+/* img loop */
+.loop_wrap {
+  display: flex;
+  width: 100vw;
+  height: fit-content;
+  overflow: hidden;
+  ul {
+    display: flex;
+    width: auto;
+    height: 100%;
+    li{
+      img{
+        width: 7rem;
+      }
+    }
+  }
+}
+@keyframes loop {
+  0% {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes loop2 {
+  0% {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-200%);
+  }
+}
+.loop_wrap ul:first-child {
+  animation: loop 50s -25s linear infinite;
+}
+.loop_wrap ul:last-child {
+  animation: loop2 50s linear infinite;
+}
