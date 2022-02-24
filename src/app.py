@@ -4,7 +4,7 @@ import base64
 from PIL import Image
 import io 
 import numpy as np
-
+import datetime
 from ml.pred import pred
 from ml.return_status import status
 from ml.return_status import get_cls_status
@@ -28,24 +28,22 @@ def draw():
 
 @app.route('/draw_post', methods=['POST'])
 def set_data():
+
     enc_data  = request.form['img']
-    #dec_data = base64.b64decode( enc_data )              # これではエラー  下記対応↓
-    dec_data = base64.b64decode( enc_data.split(',')[1] )# 環境依存の様(","で区切って本体をdecode)
-    img  = Image.open(io.BytesIO(dec_data)).convert("L") 
 
-    img=img.resize((28,28))
-    data=np.asarray(img)
-    data=data-255
+    dec_data = base64.b64decode( enc_data.split(',')[1] )
+    img  = Image.open(io.BytesIO(dec_data)).convert("L")
 
-    print(data.shape)
+    dt_now = datetime.datetime.now()
+    img_name=dt_now.strftime('%Y-%m-%d%H%M%S')+".png"
 
-    re,pr=pred("anjel.png")
+    img.save(f'/projects/static/img/draw_img/{img_name}') 
+
+    re,pr=pred(img)
     ste = status(re,pr)
     cls_ste = get_cls_status(re,pr)
 
-
-    #return render_template("index.html")
-    return render_template('index.html', r=re,p=pr,s=ste,cs=cls_ste)
+    return render_template('index.html', r=re,p=pr,s=ste,cs=cls_ste,im_n=img_name)
 
 
 if __name__ == '__main__':
