@@ -24,6 +24,7 @@ def index():
     #re,pr=pred("anjel.png")
     #ste = status(re,pr)
     #cls_ste = get_cls_status(re,pr)
+
     #return render_template("index.html")
     session["volume"] = 0
     return render_template('index.html', css='top')

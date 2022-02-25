@@ -83,8 +83,8 @@
     {
       "name": "teddy-bear",
       "status": {
-      "attack": 40,
-      "defence": 40,
+      "attack": 30,
+      "defence": 30,
       "speed": 0,
       "hp":40,
       "attribute" : 1
@@ -105,7 +105,7 @@
       "status": {
       "attack": 60,
       "defence": -20,
-      "speed": 30,
+      "speed": 40,
       "hp":40,
       "attribute" : 0
       }
@@ -115,7 +115,7 @@
       "status": {
       "attack": 50,
       "defence": 10,
-      "speed": 10,
+      "speed": 30,
       "hp":30,
       "attribute" : 1
       }

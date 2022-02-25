@@ -9,7 +9,7 @@ const top = new Vue({
     radius_data4: [],
     enemy_data1: [2, 3, 1],
     enemy_data2: [75, 10, 10],
-    enemy_data3: { "attack": 15, "attribute": 1, "defence": 16, "hp": 457, "speed": 22 },
+    enemy_data3: { "attack": 15, "attribute": 1, "defence": 16, "hp": 200, "speed": 22 },
     player: false,
     enemy: false,
     end_flag: false,
@@ -19,6 +19,7 @@ const top = new Vue({
     attacker: 0,
     defender: 0,
     damage_times: 1.0,
+    starthp:0
   },
   mounted() {
     // 自作キャラのパラメータ取得
@@ -37,6 +38,8 @@ const top = new Vue({
       //バトル開始
       if(this.battle_manager_order == 0){
         console.log("battle start!")
+        this.radius_data3["hp"] *= 10
+        this.starthp = this.radius_data3["hp"]
       }
       //
       if(this.battle_manager_order == 1){
@@ -46,7 +49,7 @@ const top = new Vue({
         this.check_speed()
       }
       if(this.battle_manager_order == 3){
-        this.attack()
+        this.attack(this.player)
       }
       if(this.battle_manager_order == 4){
         this.attack(this.enemy)
@@ -76,25 +79,30 @@ const top = new Vue({
       return
     },
     end_check: function () {
+      console.log("あなたの体力" + this.radius_data3["hp"])
+      console.log("敵の体力" + this.enemy_data3["hp"])
       if (this.radius_data3["hp"] <= 0 || this.enemy_data3["hp"] <= 0) {
         console.log("hp_0")
-      } if (this.turn_count == 10) {
+      }else if (this.turn_count == 10) {
         console.log("turn_over")
       } else { return }
       this.open_result()
     },
     open_result: function () {
       console.log("end")
-      console.log("あなたの体力" + this.radius_data3["hp"])
-      console.log("敵の体力" + this.enemy_data3["hp"])
+      if(this.radius_data3["hp"] >= this.enemy_data3["hp"] ){
+        console.log("あなたの勝利です")
+      }else{
+        console.log("あなたの負けです")
+      }
       this.end_flag = true
     },
-    attack:async function () {
-      if (this.player == true) {
+    attack:async function (former) {
+      if (former == true) {
         this.attacker = this.radius_data3["attribute"]
         this.defender = this.enemy_data3["attribute"]
         await this.check_attribute()
-        var damage = Math.round(this.radius_data3["attack"] * this.check_attribute() * (1 - (this.enemy_data3["defence"] / 100)))
+        var damage = Math.round(this.radius_data3["attack"] * this.damage_times * (1 - (this.enemy_data3["defence"] / 100)))
         this.enemy_data3["hp"] -= damage
         console.log("敵に" + damage + "のダメージ")
       } else {
