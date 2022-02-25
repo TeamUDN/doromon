@@ -57,7 +57,8 @@ def set_data():
         "r": re,
         "p": pr,
         "s": ste,
-        "cs": cls_ste
+        "cs": cls_ste,
+        "img": img_name
     }
 
     return jsonify(values=json.dumps(return_json))
