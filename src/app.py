@@ -25,6 +25,7 @@ def index():
     #ste = status(re,pr)
     #cls_ste = get_cls_status(re,pr)
     #return render_template("index.html")
+    session["volume"] = 0
     return render_template('index.html', css='top')
 
 @app.route('/draw', methods=['POST'])
@@ -33,7 +34,9 @@ def draw():
     pr=0
     ste=0
     cls_ste=0
-    return render_template("draw.html",r=re,p=pr,s=ste,cs=cls_ste, css='draw')
+    getVolume = request.form.get("sound")
+    session["volume"] = getVolume
+    return render_template("draw.html",r=re,p=pr,s=ste,cs=cls_ste, css='draw', volume=session["volume"])
 
 
 @app.route('/draw_post', methods=['POST'])
@@ -88,7 +91,7 @@ def battle():
     cls_ste = session['cs']
     file_name = session['img']
 
-    return render_template("battle.html",r=re,p=pr,s=ste,cs=cls_ste, css='battle')
+    return render_template("battle.html",r=re,p=pr,s=ste,cs=cls_ste, css='battle', volume=session["volume"])
 
 if __name__ == '__main__':
   app.run()
