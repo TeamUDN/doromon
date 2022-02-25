@@ -129,12 +129,14 @@ const top = new Vue({
         console.log("あなたの体力が" + Math.round(this.starthp * 0.03) + "回復した！")
         this.skill_flag = true
       } if (this.enemy_data1.indexOf(6) != -1)
+      console.log("【雪だるま作ろう】(敵)発動")
         this.enemy_data3['hp'] += Math.round(this.enemystarthp * 0.03)
       console.log("敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！")
       this.skill_flag = true
       
       //7 submarine
       if (this.radius_data1.indexOf(7) != -1){
+        console.log("【浮上】発動")
         if(this.turn_count >= 6){
           this.radius_data3['attack'] += 30
           this.radius_data3['defence'] -= 15
@@ -143,11 +145,20 @@ const top = new Vue({
         }
       }
       if (this.enemy_data1.indexOf(7) != -1){
+        console.log("【浮上】発動")
         if(this.turn_count >= 6){
           this.enemy_data3['attack'] += 30
           this.enemy_data3['defence'] -= 15
           console.log("敵の攻撃力が30上がり、防御力が15下がった！")
           this.skill_flag = true
+        }
+      }
+      
+      //9 エッフェル塔
+      if (this.enemy_data1.indexOf(9) != -1){
+        console.log("動かざる巨塔")
+        if(this.radius_data3['hp']/this.starthp <= 0.2){
+          
         }
       }
 
