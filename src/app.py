@@ -82,13 +82,13 @@ def set_data():
 
 @app.route('/battle', methods=['POST'])
 def battle():
-    re = session['r'] 
-    pr = session['p'] 
-    ste = session['s'] 
-    cls_ste = session['cs'] 
-    file_name = session['img'] 
-    
-    return render_template("battle.html",r=re,p=pr,s=ste,cs=cls_ste, css='draw')
+    re = session['r']
+    pr = session['p']
+    ste = session['s']
+    cls_ste = session['cs']
+    file_name = session['img']
+
+    return render_template("battle.html",r=re,p=pr,s=ste,cs=cls_ste, css='battle')
 
 if __name__ == '__main__':
   app.run()
