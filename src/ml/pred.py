@@ -7,6 +7,7 @@ def pred(img):
     import numpy as np
     from PIL import Image
     from ml.ml_model import ResNet
+    from ml.ml_model import ResNet34
 
 
     classes=['airplane', 'angel', 'dog', 'dolphin', 'shark', 'skull', 'snowman', 'submarine', 
@@ -18,8 +19,8 @@ def pred(img):
     #device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     device = 'cpu'
 
-    model_path = '/projects/ml/cls_model.torch'
-    model = ResNet(num_classes=16).to(device)
+    model_path = '/projects/ml/cls_model_res34.torch'
+    model = ResNet34(num_classes=16).to(device)
     model.load_state_dict(torch.load(model_path, map_location=torch.device(device)))
     model.eval()
 
