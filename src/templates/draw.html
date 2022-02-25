@@ -1,25 +1,27 @@
 {% extends "layout.html" %}{% block content %}
 <input id="vueSound" value="{{ sound }}" style="display: none;"></input>
 
-<div class="canvasArea">
-  <canvas id="canvas" width="500" height="500"></canvas>
+<div id="drawPage">
+  <div class="canvasArea">
+    <canvas id="canvas" width="500" height="500"></canvas>
+  </div>
+  <input type="button" value="clear" id="clear">
+  <button id="submit">送信</button>
+  <div id="result"><img src=""></div>
 </div>
-<input type="button" value="clear" id="clear">
-<button id="submit">送信</button>
-<div id="result"><img src=""></div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="../static/webpack/draw.js"></script>
 <script>
-    radius_data1 = {{ r | tojson }};
-    radius_data2 = {{ p | tojson }};
-    radius_data3 = {{ s | tojson }};
-    radius_data4 = {{ cs | tojson }};
-    console.log(radius_data1)
-    console.log(radius_data2)
-    console.log(radius_data3)
-    console.log(radius_data4)
-</script>
+  radius_data1 = {{ r | tojson }};
+  radius_data2 = {{ p | tojson }};
+  radius_data3 = {{ s | tojson }};
+  radius_data4 = {{ cs | tojson }};
+  console.log(radius_data1)
+  console.log(radius_data2)
+  console.log(radius_data3)
+  console.log(radius_data4)
 
-<script>
   // canvas
   var cnvs = document.getElementById('canvas');
   var ctx = cnvs.getContext('2d');
