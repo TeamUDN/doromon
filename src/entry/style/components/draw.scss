@@ -4,6 +4,24 @@
   align-items: center;
 }
 
+#timerArea {
+  width: fit-content;
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  font-size: 1.8rem;
+  margin: 0 auto 1rem;
+}
+#countdown {
+  font-size: 3rem;
+}
+
+#clear {
+  display: block;
+  width: fit-content;
+  margin: 1.5rem auto 0;
+}
+
 .canvasArea {
   width: fit-content;
 }

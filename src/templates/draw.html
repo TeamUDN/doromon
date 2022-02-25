@@ -2,18 +2,18 @@
 <input id="soundCheck" value="{{ sound }}" style="display: none;"></input>
 
 <div id="drawPage">
-  <button id="drawStartBtn"  class="btnBase red">はじめる</button>
+  <button id="drawStartBtn"  class="btnBase red">絵を描く！</button>
 
   <div id="drawArea" style="display:none;">
     <div id="timerArea">
-      <p>あと</p>
+      <p>のこり</p>
       <span id="countdown">20</span>
       <p>秒</p>
     </div>
     <div class="canvasArea">
       <canvas id="canvas" width="500" height="500"></canvas>
     </div>
-    <input type="button" value="clear" id="clear">
+    <button class="btnBase gray" id="clear">全部消す</button>
     <button id="submit" style="display: none;">送信</button>
     <!--<div id="result"><img src=""></div>-->
   </div>
