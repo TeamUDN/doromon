@@ -1,7 +1,7 @@
 {% extends "layout.html" %}{% block content %}
 <input id="vueSound" value="{{ sound }}" style="display: none;"></input>
 
-<div id="drawPage">
+<div id="drawArea">
   <div class="canvasArea">
     <canvas id="canvas" width="500" height="500"></canvas>
   </div>
@@ -9,13 +9,10 @@
   <button id="submit">送信</button>
   <div id="result"><img src=""></div>
 </div>
+<div id="drawImgShow">
+</div>
 
 <script>
-  radius_data1 = {{ r | tojson }};
-  radius_data2 = {{ p | tojson }};
-  radius_data3 = {{ s | tojson }};
-  radius_data4 = {{ cs | tojson }};
-
   // canvas
   var cnvs = document.getElementById('canvas');
   var ctx = cnvs.getContext('2d');
@@ -81,6 +78,18 @@
       success: function (data, dataType) {
         //非同期で通信成功時に読み出される [200 OK 時]
         console.log('Success', data);
+        const prm = JSON.parse(data.values);
+        console.log(prm);
+        console.log(prm.img);
+        // canvasを削除
+        document.getElementById("drawArea").style.display = 'none';
+        // imgを表示
+        var parent = document.getElementById("drawImgShow");
+        var new_img = document.createElement('img');
+        new_img.src = '../static/img/draw_img/'+prm.img;
+        new_img.width = 500;
+        new_img.height = 500;
+        parent.appendChild(new_img);
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
         //非同期で通信失敗時に読み出される
@@ -95,7 +104,5 @@
     ctx.fillRect(0,0,cnvWidth,cnvHeight);
   }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="../static/webpack/draw.js"></script>
 
 {% endblock %}

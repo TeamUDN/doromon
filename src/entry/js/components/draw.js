@@ -1,3 +1,4 @@
+/*
 const top = new Vue({
   el: '#drawPage',
   // FlaskとVueを共存させるためにDelimiterを変更する
@@ -13,3 +14,4 @@ const top = new Vue({
   methods: {
   }
 });
+*/
