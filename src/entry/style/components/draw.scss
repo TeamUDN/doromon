@@ -18,6 +18,7 @@
   display: flex;
   gap: 2rem;
   margin: 0 auto;
+  align-items: center;
 }
 #drawImgShow {
   width: fit-content;
@@ -32,4 +33,18 @@
 }
 .chartCanvas {
   width: 40rem;
+}
+
+#leftArea {
+  width: fit-content;
+  height: fit-content;
+}
+#rightArea {
+  width: fit-content;
+  height: fit-content;
+}
+
+#battleForm {
+  width: fit-content;
+  margin: 2rem auto 0;
 }
