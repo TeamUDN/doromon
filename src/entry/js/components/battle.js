@@ -4,7 +4,7 @@ const top = new Vue({
   delimiters: ["[[", "]]"],
   data: {
     enemy_info: null,
-    radius_data1: [7,1,2],
+    radius_data1: [],
     radius_data2: [],
     radius_data3: [],
     radius_data4: [],
@@ -43,7 +43,7 @@ const top = new Vue({
       })
     // 自作キャラのパラメータ取得
     this.radius_data2 = document.getElementById('p').value //確率
-    //this.radius_data1 = document.getElementById('r').value //クラス
+    this.radius_data1 = document.getElementById('r').value //クラス
     var getJSON = document.getElementById('s').value
     this.radius_data3 = JSON.parse(getJSON)
     this.radius_data4 = document.getElementById('cs').value
