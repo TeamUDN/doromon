@@ -250,13 +250,13 @@ const top = new Vue({
     check_attribute: async function () {
       this.damage_times = 1.0
       if (this.attacker == 0 && this.defender == 1) {
-        this.damage_times = 1.2
+        this.damage_times *= 1.2
         console.log("地属性に効果抜群だ！")
       } else if (this.attacker == 1 && this.defender == 2) {
-        this.damage_times = 1.2
+        this.damage_times *= 1.2
         console.log("海属性に効果抜群だ！")
       } else if (this.attacker == 2 && this.defender == 0) {
-        this.damage_times = 1.2
+        this.damage_times *= 1.2
         console.log("天属性に効果抜群だ！")
       }
       //return this.damage_times
