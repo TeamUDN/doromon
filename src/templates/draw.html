@@ -1,23 +1,22 @@
 {% extends "layout.html" %}{% block content %}
 <input id="vueSound" value="{{ sound }}" style="display: none;"></input>
 
-<div class="canvasArea">
-  <canvas id="canvas" width="500" height="500"></canvas>
+<div id="drawArea">
+  <div class="canvasArea">
+    <canvas id="canvas" width="500" height="500"></canvas>
+  </div>
+  <input type="button" value="clear" id="clear">
+  <button id="submit">送信</button>
+  <div id="result"><img src=""></div>
 </div>
-<input type="button" value="clear" id="clear">
-<button id="submit">送信</button>
-<div id="result"><img src=""></div>
 
-<script>
-    radius_data1 = {{ r | tojson }};
-    radius_data2 = {{ p | tojson }};
-    radius_data3 = {{ s | tojson }};
-    radius_data4 = {{ cs | tojson }};
-    console.log(radius_data1)
-    console.log(radius_data2)
-    console.log(radius_data3)
-    console.log(radius_data4)
-</script>
+<div id="resultArea" style="display:none;">
+  <div id="drawImgShow">
+  </div>
+  <form action="/battle" method="POST">
+    <button type="submit">Battle</button>
+  </form>
+</div>
 
 <script>
   // canvas
@@ -85,6 +84,20 @@
       success: function (data, dataType) {
         //非同期で通信成功時に読み出される [200 OK 時]
         console.log('Success', data);
+        const prm = JSON.parse(data.values);
+        console.log(prm);
+        console.log(prm.img);
+        // canvasを非表示
+        document.getElementById("drawArea").style.display = 'none';
+        // resultAreaを表示
+        document.getElementById("resultArea").style.display = 'block';
+        // imgを表示
+        var parent = document.getElementById("drawImgShow");
+        var new_img = document.createElement('img');
+        new_img.src = '../static/img/draw_img/'+prm.img;
+        new_img.width = 500;
+        new_img.height = 500;
+        parent.appendChild(new_img);
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
         //非同期で通信失敗時に読み出される
