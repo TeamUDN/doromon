@@ -4,6 +4,12 @@ const top = new Vue({
   delimiters: ["[[", "]]"],
   data: {
   },
+  mounted() {
+    console.log(radius_data1)
+    console.log(radius_data2)
+    console.log(radius_data3)
+    console.log(radius_data4)
+  },
   methods: {
   }
 });
