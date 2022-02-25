@@ -9,14 +9,6 @@
       }
     },
     {
-      "name": "enemy1",
-      "status": {
-      "class": [2, 3, 1],
-      "percentage": [75, 10, 10],
-      "status": { "attack": 15, "attribute": 1, "defence": 16, "hp": 457, "speed": 22 }
-      }
-    },
-    {
       "name": "air_1",
       "status": {
       "class": [0, 4, 3],

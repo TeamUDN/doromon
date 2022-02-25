@@ -8,9 +8,9 @@ const top = new Vue({
     radius_data2: [],
     radius_data3: [],
     radius_data4: [],
-    enemy_data1: [2, 3, 1],
-    enemy_data2: [75, 10, 10],
-    enemy_data3: { "attack": 15, "attribute": 1, "defence": 16, "hp": 200, "speed": 22 },
+    enemy_data1: [],
+    enemy_data2: [],
+    enemy_data3: {},
     player: false,
     enemy: false,
     end_flag: false,
@@ -20,7 +20,9 @@ const top = new Vue({
     attacker: 0,
     defender: 0,
     damage_times: 1.0,
-    starthp:0
+    starthp:0,
+    enemystarthp:0,
+    enemy_number:0
   },
   mounted() {
     // json取得
@@ -29,16 +31,21 @@ const top = new Vue({
       .then(response => {
         // 取得したデータを配列に格納
         this.enemy_info = response.data.data
-        console.log(this.enemy_info)
-        console.log(this.enemy_info[0].name)
+        this.enemy_number = this.getRandomInt(1,this.enemy_info.length)
+        console.log(this.enemy_info[this.enemy_number].name)
+        this.enemy_data1 = this.enemy_info[this.enemy_number].status.class
+        this.enemy_data2 = this.enemy_info[this.enemy_number].status.percentage
+        this.enemy_data3 = this.enemy_info[this.enemy_number].status.status
+        console.log(this.enemy_data1)
+        console.log(this.radius_data1)
+        this.battle_start()
       })
     // 自作キャラのパラメータ取得
-    this.radius_data1 = document.getElementById('p').value
-    this.radius_data2 = document.getElementById('r').value
+    this.radius_data2 = document.getElementById('p').value
+    this.radius_data1 = document.getElementById('r').value
     var getJSON = document.getElementById('s').value
     this.radius_data3 = JSON.parse(getJSON)
     this.radius_data4 = document.getElementById('cs').value
-    this.battle_start()
   },
   methods: {
     battle_manager: function () {
@@ -49,7 +56,11 @@ const top = new Vue({
       if(this.battle_manager_order == 0){
         console.log("battle start!")
         this.radius_data3["hp"] *= 10
+        this.enemy_data3["hp"] *= 10
         this.starthp = this.radius_data3["hp"]
+        this.enemystarthp = this.enemy_data3["hp"]
+        console.log("あなたのHP"+this.starthp)
+        console.log("敵のHP"+this.enemystarthp)
       }
       //
       if(this.battle_manager_order == 1){
@@ -137,6 +148,9 @@ const top = new Vue({
         console.log("天属性に効果抜群だ！")
       }
       //return this.damage_times
+    },
+    getRandomInt:function(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     },
     battle_start: function () {
       const update = () => {
