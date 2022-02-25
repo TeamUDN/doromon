@@ -1,8 +1,35 @@
+#drawPage {
+  height: calc(100vh - 4rem);
+  display: flex;
+  align-items: center;
+}
+
 .canvasArea {
   width: fit-content;
 }
 
-canvas {
-  border: solid 1px #000;
+#canvas {
+  border: solid 10px $main-red;
   box-sizing: border-box;
+}
+
+#resultArea {
+  width: fit-content;
+  display: flex;
+  gap: 2rem;
+  margin: 0 auto;
+}
+#drawImgShow {
+  width: fit-content;
+  height: fit-content;
+  border: solid 10px $main-red;
+}
+.chartArea {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.chartCanvas {
+  width: 40rem;
 }

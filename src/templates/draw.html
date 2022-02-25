@@ -1,30 +1,42 @@
 {% extends "layout.html" %}{% block content %}
 <input id="soundCheck" value="{{ sound }}" style="display: none;"></input>
 
-<button id="drawStartBtn">はじめる</button>
+<div id="drawPage">
+  <button id="drawStartBtn"  class="btnBase red">はじめる</button>
 
-<div id="drawArea" style="display:none;">
-  <div id="timerArea">
-    <p>あと</p>
-    <span id="countdown">20</span>
-    <p>秒</p>
+  <div id="drawArea" style="display:none;">
+    <div id="timerArea">
+      <p>あと</p>
+      <span id="countdown">20</span>
+      <p>秒</p>
+    </div>
+    <div class="canvasArea">
+      <canvas id="canvas" width="500" height="500"></canvas>
+    </div>
+    <input type="button" value="clear" id="clear">
+    <button id="submit" style="display: none;">送信</button>
+    <!--<div id="result"><img src=""></div>-->
   </div>
-  <div class="canvasArea">
-    <canvas id="canvas" width="500" height="500"></canvas>
-  </div>
-  <input type="button" value="clear" id="clear">
-  <button id="submit">送信</button>
-  <div id="result"><img src=""></div>
-</div>
 
-<div id="resultArea" style="display:none;">
-  <div id="drawImgShow">
+  <div id="resultArea" style="display:none;">
+    <div id="leftArea">
+      <div id="drawImgShow">
+      </div>
+      <form action="/battle" method="POST">
+        <button type="submit">Battle</button>
+      </form>
+    </div>
+    <div id="rightArea">
+      <div class="chartArea">
+        <div class="chartCanvas">
+          <canvas id="circleChart"></canvas>
+        </div>
+        <div class="chartCanvas">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+    </div>
   </div>
-  <canvas id="circleChart"></canvas>
-  <canvas id="barChart"></canvas>
-  <form action="/battle" method="POST">
-    <button type="submit">Battle</button>
-  </form>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -118,7 +130,7 @@
         // canvasを非表示
         document.getElementById("drawArea").style.display = 'none';
         // resultAreaを表示
-        document.getElementById("resultArea").style.display = 'block';
+        document.getElementById("resultArea").style.display = 'flex';
         // imgを表示
         var parent = document.getElementById("drawImgShow");
         var new_img = document.createElement('img');
