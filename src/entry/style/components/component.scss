@@ -1,5 +1,6 @@
 /* 変数宣言 */
 $main-red: #C64756;
+$text-color: #333333;
 
 body {
   width: 100vw;
@@ -20,4 +21,15 @@ footer {
     color: #ffffff;
     text-align: center;
   }
+}
+
+.btnBase {
+  width: fit-content;
+  padding: 1rem 1.8rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+.red {
+  color: #ffffff;
+  background-color: $main-red;
 }
