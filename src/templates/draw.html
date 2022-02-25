@@ -1,7 +1,14 @@
 {% extends "layout.html" %}{% block content %}
 <input id="vueSound" value="{{ sound }}" style="display: none;"></input>
 
-<div id="drawArea">
+<button id="drawStartBtn">はじめる</button>
+
+<div id="drawArea" style="display:none;">
+  <div id="timerArea">
+    <p>あと</p>
+    <span id="countdown">20</span>
+    <p>秒</p>
+  </div>
   <div class="canvasArea">
     <canvas id="canvas" width="500" height="500"></canvas>
   </div>
@@ -13,12 +20,33 @@
 <div id="resultArea" style="display:none;">
   <div id="drawImgShow">
   </div>
+  <canvas id="circleChart"></canvas>
+  <canvas id="barChart"></canvas>
   <form action="/battle" method="POST">
     <button type="submit">Battle</button>
   </form>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
+  $("#drawStartBtn").click(function(){
+    console.log('timer')
+    // startBtnを非表示
+    document.getElementById('drawStartBtn').style.display = 'none';
+    // timerAreaを表示
+    document.getElementById('drawArea').style.display = 'block';
+    count = 20;
+    $('#countdown').text(count);
+    cnDown = setInterval(function(){
+      count--;
+      if(count <= 0){
+        clearInterval(cnDown);
+        document.getElementById('submit').click();
+      }
+      $('#countdown').text(count);
+    },1000);
+  });
+
   // canvas
   var cnvs = document.getElementById('canvas');
   var ctx = cnvs.getContext('2d');
@@ -86,7 +114,7 @@
         console.log('Success', data);
         const prm = JSON.parse(data.values);
         console.log(prm);
-        console.log(prm.img);
+        console.log(prm.r);
         // canvasを非表示
         document.getElementById("drawArea").style.display = 'none';
         // resultAreaを表示
@@ -98,6 +126,77 @@
         new_img.width = 500;
         new_img.height = 500;
         parent.appendChild(new_img);
+        // json取得
+        var className = [];
+        $.getJSON("../static/json/status.json", function(json){
+          className.push(json.data[prm.r[0]].name);
+          className.push(json.data[prm.r[1]].name);
+          className.push(json.data[prm.r[2]].name);
+          console.log(className);
+          //円グラフ作成
+          var ctx = document.getElementById('circleChart').getContext('2d');
+          var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: [className[0], className[1], className[2]],
+              datasets: [{
+                backgroundColor: ['rgb(241,158,194)', 'rgb(255,231,63)', 'rgb(246,173,60)'],
+                data: [prm.p[0], prm.p[1], prm.p[2],],
+              }]
+            },
+            options: {
+            }
+          });
+          //棒グラフ作成
+          var ctx = document.getElementById('barChart').getContext('2d');
+          var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ["攻撃力","防御力","速さ","HP"],
+              datasets: [{
+                label: className[0],
+                borderWidth:1,
+                backgroundColor: "rgb(241,158,194)",
+                borderColor: "rgb(241,158,194)",
+                data: [prm.cs[0][0],prm.cs[0][1],prm.cs[0][2],prm.cs[0][3]]
+              },{
+                label: className[1],
+                borderWidth:1,
+                backgroundColor: "rgb(255,231,63)",
+                borderColor: "rgb(255,231,63)",
+                data: [prm.cs[1][0],prm.cs[1][1],prm.cs[1][2],prm.cs[1][3]]
+              },{
+                label: className[2],
+                borderWidth:1,
+                backgroundColor: "rgb(246,173,60)",
+                borderColor: "rgb(246,173,60)",
+                data: [prm.cs[2][0],prm.cs[2][1],prm.cs[2][2],prm.cs[2][3]]
+              }
+              ]
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  stacked: true, //積み上げ棒グラフにする設定
+                  categoryPercentage:0.5 //棒グラフの太さ
+                  }],
+                  yAxes: [{
+                    stacked: true //積み上げ棒グラフにする設定
+                }]
+              },
+              legend: {
+                labels: {
+                  boxWidth:30,
+                  padding:30 //凡例の各要素間の距離
+                },
+                display: true
+              },
+              tooltips:{
+                mode:'label' //マウスオーバー時に表示されるtooltip
+              }
+            }
+          });
+        });
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
         //非同期で通信失敗時に読み出される
