@@ -156,12 +156,42 @@ const top = new Vue({
       
       //9 エッフェル塔
       if (this.enemy_data1.indexOf(9) != -1){
-        console.log("動かざる巨塔")
-        if(this.radius_data3['hp']/this.starthp <= 0.2){
-          
+        console.log("【動かざる巨塔】発動")
+        if(this.radius_data3['hp']/this.starthp <= 0.15){
+          this.radius_data3['attack'] *= 3
+          this.radius_data3['defence'] *= 3
+          this.radius_data3['speed'] *= 3
+          console.log("あなたのステータスが3倍になった")
+          this.skill_flag = true
+        }
+        console.log("【動かざる巨塔】(敵)発動")
+        if(this.enemy_data3['hp']/this.enemystarthp <= 0.15){
+          this.enemy_data3['attack'] *= 3
+          this.enemy_data3['defence'] *= 3
+          this.enemy_data3['speed'] *= 3
+          console.log("敵のステータスが3倍になった")
+          this.skill_flag = true
         }
       }
 
+      //15 シマウマ
+      if(this.radius_data1.indexOf(9) != -1){
+        console.log("【生存本能】発動")
+        this.radius_data3['speed'] += 10
+        console.log("あなたの素早さが10上がった")
+        this.skill_flag = true
+        }
+      if(this.enemy_data1.indexOf(9) != -1){
+        console.log("【生存本能】(敵)発動")
+        this.enemy_data3['speed'] += 10
+        console.log("あなたの素早さが10上がった")
+        this.skill_flag = true
+      }
+
+      if (this.skill_flag == false) {
+        this.battle_manager_order += 1
+      }else{
+        this.skill_flag = false}
     },
     check_speed: function () {
       if (this.radius_data3['speed'] >= this.enemy_data3['speed']) {
@@ -193,6 +223,12 @@ const top = new Vue({
         console.log("あなたの負けです")
       }
       this.end_flag = true
+    },
+    attack_skill: function(former){
+      if(former == true){
+        
+      }
+
     },
     attack: async function (former) {
       if (former == true) {//自分の攻撃
