@@ -51,6 +51,7 @@ def set_data():
 
 
     model_dir = '/projects/static/img/draw_img/'
+    #model_dir = '/opt/src/static/img/draw_img/'
     model_files = os.listdir(model_dir)
     model_files.sort()
     print(model_files)
@@ -61,6 +62,7 @@ def set_data():
     now = datetime.datetime.now()
     file_name = '{0:%d%H%M%S}'.format(now) + ".png"
     img.save(f'/projects/static/img/draw_img/{file_name}')
+    #img.save(f'/opt/src/static/img/draw_img/{file_name}')
 
     re,pr=pred(img)
     ste = status(re,pr)

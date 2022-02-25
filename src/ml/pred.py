@@ -20,6 +20,7 @@ def pred(img):
     device = 'cpu'
 
     model_path = '/projects/ml/cls_model_res34.torch'
+    #model_path = '/opt/src/ml/cls_model_res34.torch'
     model = ResNet34(num_classes=16).to(device)
     model.load_state_dict(torch.load(model_path, map_location=torch.device(device)))
     model.eval()
