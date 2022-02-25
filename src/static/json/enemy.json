@@ -1,0 +1,20 @@
+{
+  "data":[
+    {
+      "name": "enemy0",
+      "status": {
+      "class": 1,
+      "percentage": 1,
+      "status": 1
+      }
+    },
+    {
+      "name": "enemy1",
+      "status": {
+      "class": [2, 3, 1],
+      "percentage": [75, 10, 10],
+      "status": { "attack": 15, "attribute": 1, "defence": 16, "hp": 457, "speed": 22 }
+      }
+    }
+  ]
+}
