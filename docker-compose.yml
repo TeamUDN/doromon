@@ -10,4 +10,6 @@ services:
     tty: true
     environment:
       TZ: Asia/Tokyo
-    command: flask run --host 0.0.0.0 --port 5000
+    #command: flask run --host 0.0.0.0 --port 5000
+        #デプロイ用command
+    command: flask run --port 5000
