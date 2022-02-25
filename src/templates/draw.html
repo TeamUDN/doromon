@@ -13,11 +13,13 @@
 <div id="resultArea" style="display:none;">
   <div id="drawImgShow">
   </div>
+  <canvas id="circleChart"></canvas>
   <form action="/battle" method="POST">
     <button type="submit">Battle</button>
   </form>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
   // canvas
   var cnvs = document.getElementById('canvas');
@@ -86,7 +88,7 @@
         console.log('Success', data);
         const prm = JSON.parse(data.values);
         console.log(prm);
-        console.log(prm.img);
+        console.log(prm.r);
         // canvasを非表示
         document.getElementById("drawArea").style.display = 'none';
         // resultAreaを表示
@@ -98,6 +100,29 @@
         new_img.width = 500;
         new_img.height = 500;
         parent.appendChild(new_img);
+        // json取得
+        var className = [];
+        $.getJSON("../static/json/status.json", function(json){
+          className.push(json.data[prm.r[0]].name);
+          className.push(json.data[prm.r[1]].name);
+          className.push(json.data[prm.r[2]].name);
+          console.log(className);
+
+          //円グラフ作成
+          var ctx = document.getElementById('circleChart').getContext('2d');
+          var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: [className[0], className[1], className[2]],
+              datasets: [{
+                backgroundColor: ['rgb(241,158,194)', 'rgb(255,231,63)', 'rgb(246,173,60)'],
+                data: [prm.p[0], prm.p[1], prm.p[2],],
+              }]
+            },
+            options: {
+            }
+          });
+        });
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
         //非同期で通信失敗時に読み出される
