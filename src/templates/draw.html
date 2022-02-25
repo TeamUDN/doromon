@@ -14,6 +14,7 @@
   <div id="drawImgShow">
   </div>
   <canvas id="circleChart"></canvas>
+  <canvas id="barChart"></canvas>
   <form action="/battle" method="POST">
     <button type="submit">Battle</button>
   </form>
@@ -120,6 +121,56 @@
               }]
             },
             options: {
+            }
+          });
+
+          //棒グラフ作成
+          var ctx = document.getElementById('barChart').getContext('2d');
+          var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ["攻撃力","防御力","速さ","HP"],
+              datasets: [{
+                label: className[0],
+                borderWidth:1,
+                backgroundColor: "rgb(241,158,194)",
+                borderColor: "rgb(241,158,194)",
+                data: [prm.cs[0][0],prm.cs[0][1],prm.cs[0][2],prm.cs[0][3]]
+              },{
+                label: className[1],
+                borderWidth:1,
+                backgroundColor: "rgb(255,231,63)",
+                borderColor: "rgb(255,231,63)",
+                data: [prm.cs[1][0],prm.cs[1][1],prm.cs[1][2],prm.cs[1][3]]
+              },{
+                label: className[2],
+                borderWidth:1,
+                backgroundColor: "rgb(246,173,60)",
+                borderColor: "rgb(246,173,60)",
+                data: [prm.cs[2][0],prm.cs[2][1],prm.cs[2][2],prm.cs[2][3]]
+              }
+              ]
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  stacked: true, //積み上げ棒グラフにする設定
+                  categoryPercentage:0.5 //棒グラフの太さ
+                  }],
+                  yAxes: [{
+                    stacked: true //積み上げ棒グラフにする設定
+                }]
+              },
+              legend: {
+                labels: {
+                  boxWidth:30,
+                  padding:30 //凡例の各要素間の距離
+                },
+                display: true
+              },
+              tooltips:{
+                mode:'label' //マウスオーバー時に表示されるtooltip
+              }
             }
           });
         });
