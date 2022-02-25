@@ -24,8 +24,8 @@ def index():
     #re,pr=pred("anjel.png")
     #ste = status(re,pr)
     #cls_ste = get_cls_status(re,pr)
-    #return render_template("index.html")
-    return render_template('battle.html', css='top')
+    return render_template("index.html", css='top')
+    #return render_template('battle.html', css='top')
 
 @app.route('/draw', methods=['POST'])
 def draw():
@@ -39,13 +39,13 @@ def draw():
 @app.route('/draw_post', methods=['POST'])
 def set_data():
 
+    #画像の受け取り
     enc_data  = request.form['img']
-
     dec_data = base64.b64decode( enc_data.split(',')[1] )
     img  = Image.open(io.BytesIO(dec_data)).convert("L")
 
 
-
+    #画像が30枚以上になったら削除
     model_dir = '/projects/static/img/draw_img/'
     model_files = os.listdir(model_dir)
     model_files.sort()
@@ -56,7 +56,8 @@ def set_data():
 
     now = datetime.datetime.now()
     file_name = '{0:%d%H%M%S}'.format(now) + ".png"
-    img.save(f'/projects/static/img/draw_img/{file_name}')
+    #img.save(f'/projects/static/img/draw_img/{file_name}')
+    img.save(f'/projects/static/img/enemy_img/{file_name}')
 
     re,pr=pred(img)
     ste = status(re,pr)

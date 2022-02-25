@@ -30,7 +30,9 @@ def status(re,pr):
     s=np.array(list(df["data"][re[i]]["status"].values()))*(pr[i]/100)
     ste=ste+s
 
-  print(ste)
+  d={"attack": int(ste[0]), "attribute": df["data"][re[0]]["status"]["attribute"], "defence": int(ste[1]),  "hp": int(ste[3]),"speed": int(ste[2])}
+  d=json.dumps(d)
+  print(d)
   
   return {'attack': int(ste[0]), 'defence': int(ste[1]), 'speed': int(ste[2]), 'hp': int(ste[3]), 'attribute': df["data"][re[0]]["status"]["attribute"]}
   

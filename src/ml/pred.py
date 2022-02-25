@@ -49,6 +49,8 @@ def pred(img):
         pr.append(int(out[0][l].item()*100))
     
     #pr.append(int(100-sum(pr)))
+    print(re)
+    print(pr)    
 
 
     return re,pr

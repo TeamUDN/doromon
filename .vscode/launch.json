@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "src:app.set_data (python3.6)",
+      "invokeTarget": {
+        "target": "code",
+        "projectRoot": "${workspaceFolder}/src",
+        "lambdaHandler": "app.set_data"
+      },
+      "lambda": {
+        "runtime": "python3.6",
+        "payload": {},
+        "environmentVariables": {}
+      }
+    }
+  ]
+}
