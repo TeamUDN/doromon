@@ -22,7 +22,7 @@ def index():
     #ste = status(re,pr)
     #cls_ste = get_cls_status(re,pr)
     #return render_template("index.html")
-    return render_template('index.html', css='top')
+    return render_template('battle.html', css='top')
 
 @app.route('/draw', methods=['POST'])
 def draw():
