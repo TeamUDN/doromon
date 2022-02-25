@@ -1,4 +1,5 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request, jsonify
+import json
 import base64
 from PIL import Image
 import io
@@ -50,8 +51,16 @@ def set_data():
     ste = status(re,pr)
     cls_ste = get_cls_status(re,pr)
 
-    return render_template('draw.html', r=re,p=pr,s=ste,cs=cls_ste, css='draw')
+    #return render_template('draw.html', r=re,p=pr,s=ste,cs=cls_ste, css='draw')
 
+    return_json = {
+        "r": re,
+        "p": pr,
+        "s": ste,
+        "cs": cls_ste
+    }
+
+    return jsonify(values=json.dumps(return_json))
 
 if __name__ == '__main__':
   app.run()
