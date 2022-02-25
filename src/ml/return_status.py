@@ -31,6 +31,9 @@ def status(re,pr):
     ste=ste+s
 
   print(ste)
-  
-  return {'attack': int(ste[0]), 'defence': int(ste[1]), 'speed': int(ste[2]), 'hp': int(ste[3]), 'attribute': df["data"][re[0]]["status"]["attribute"]}
-  
+
+  data = {"attack": int(ste[0]), "defence": int(ste[1]), "speed": int(ste[2]), "hp": int(ste[3]), "attribute": df["data"][re[0]]["status"]["attribute"]}
+
+  data_json = json.dumps(data)
+
+  return data_json
