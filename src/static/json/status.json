@@ -83,9 +83,9 @@
     {
       "name": "teddy-bear",
       "status": {
-      "attack": 10,
+      "attack": 40,
       "defence": 40,
-      "speed": 10,
+      "speed": 0,
       "hp":400,
       "attribute" : 1
       }
@@ -113,10 +113,10 @@
     {
       "name": "tiger",
       "status": {
-      "attack": 60,
+      "attack": 50,
       "defence": 10,
       "speed": 10,
-      "hp":400,
+      "hp":300,
       "attribute" : 1
       }
     },

@@ -50,7 +50,7 @@ def set_data():
     ste = status(re,pr)
     cls_ste = get_cls_status(re,pr)
 
-    return render_template('draw.html', r=re,p=pr,s=ste,cs=cls_ste, css='draw')
+    return render_template('draw.html', r=re,p=pr,s=ste,cs=cls_ste, css='draw') #re クラス pr 確率 ste ステータス cls 各クラスのステータス
 
 
 if __name__ == '__main__':
