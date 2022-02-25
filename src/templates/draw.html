@@ -9,7 +9,13 @@
   <button id="submit">送信</button>
   <div id="result"><img src=""></div>
 </div>
-<div id="drawImgShow">
+
+<div id="resultArea" style="display:none;">
+  <div id="drawImgShow">
+  </div>
+  <form action="/battle" method="POST">
+    <button type="submit">Battle</button>
+  </form>
 </div>
 
 <script>
@@ -81,8 +87,10 @@
         const prm = JSON.parse(data.values);
         console.log(prm);
         console.log(prm.img);
-        // canvasを削除
+        // canvasを非表示
         document.getElementById("drawArea").style.display = 'none';
+        // resultAreaを表示
+        document.getElementById("resultArea").style.display = 'block';
         // imgを表示
         var parent = document.getElementById("drawImgShow");
         var new_img = document.createElement('img');

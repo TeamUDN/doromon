@@ -63,5 +63,10 @@ def set_data():
 
     return jsonify(values=json.dumps(return_json))
 
+
+@app.route('/battle', methods=['POST'])
+def battle():
+    return render_template("battle.html",css='draw')
+
 if __name__ == '__main__':
   app.run()
