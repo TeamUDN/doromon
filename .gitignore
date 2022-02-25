@@ -3,3 +3,5 @@ node_modules
 
 src/static/webpack/*
 .DS_Store
+
+src/static/img/draw_img/*.png
