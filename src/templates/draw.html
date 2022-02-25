@@ -41,6 +41,7 @@
       count--;
       if(count <= 0){
         clearInterval(cnDown);
+        document.getElementById('submit').click();
       }
       $('#countdown').text(count);
     },1000);
