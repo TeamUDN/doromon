@@ -2,6 +2,12 @@
 <input id="vueSound" value="{{ sound }}" style="display: none;"></input>
 
 <div id="drawArea">
+  <button id="drawStartBtn">はじめる</button>
+  <div id="timerArea" style="display:none;">
+    <p>あと</p>
+    <span id="countdown">10</span>
+    <p>秒</p>
+  </div>
   <div class="canvasArea">
     <canvas id="canvas" width="500" height="500"></canvas>
   </div>
@@ -22,6 +28,23 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
+  $("#drawStartBtn").click(function(){
+    console.log('timer')
+    // startBtnを非表示
+    document.getElementById('drawStartBtn').style.display = 'none';
+    // timerAreaを表示
+    document.getElementById('timerArea').style.display = 'block';
+    count = 10;
+    $('#countdown').text(count);
+    cnDown = setInterval(function(){
+      count--;
+      if(count <= 0){
+        clearInterval(cnDown);
+      }
+      $('#countdown').text(count);
+    },1000);
+  });
+
   // canvas
   var cnvs = document.getElementById('canvas');
   var ctx = cnvs.getContext('2d');
@@ -108,7 +131,6 @@
           className.push(json.data[prm.r[1]].name);
           className.push(json.data[prm.r[2]].name);
           console.log(className);
-
           //円グラフ作成
           var ctx = document.getElementById('circleChart').getContext('2d');
           var chart = new Chart(ctx, {
@@ -123,7 +145,6 @@
             options: {
             }
           });
-
           //棒グラフ作成
           var ctx = document.getElementById('barChart').getContext('2d');
           var chart = new Chart(ctx, {
