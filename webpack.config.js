@@ -7,6 +7,7 @@ module.exports = {
   //mode: 'production',
   entry: {
     'top': './src/entry/js/pages/top.js',
+    'draw': './src/entry/js/pages/draw.js',
     'top.css': './src/entry/style/pages/top.scss',
     'draw.css': './src/entry/style/pages/draw.scss',
   },
