@@ -1,4 +1,5 @@
-from flask import Flask,render_template,request, jsonify
+from fileinput import filename
+from flask import Flask,render_template,request, jsonify, session
 import json
 import base64
 from PIL import Image
@@ -11,10 +12,11 @@ from ml.pred import pred
 from ml.return_status import status
 from ml.return_status import get_cls_status
 import os
+
 #os.system('wget "https://drive.google.com/uc?export=download&id=1mZA0oxgVyhaomDAtM9qhDumeFam1J8vU" -O /projects/ml/cls_model.torch')
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'secret!'
 
 @app.route('/')
 def index():
@@ -23,7 +25,7 @@ def index():
     #ste = status(re,pr)
     #cls_ste = get_cls_status(re,pr)
     #return render_template("index.html")
-    return render_template('index.html', css='top')
+    return render_template('battle.html', css='top')
 
 @app.route('/draw', methods=['POST'])
 def draw():
@@ -42,10 +44,19 @@ def set_data():
     dec_data = base64.b64decode( enc_data.split(',')[1] )
     img  = Image.open(io.BytesIO(dec_data)).convert("L")
 
-    dt_now = datetime.datetime.now()
-    img_name=dt_now.strftime('%Y-%m-%d%H%M%S')+".png"
 
-    img.save(f'/projects/static/img/draw_img/{img_name}')
+
+    model_dir = '/projects/static/img/draw_img/'
+    model_files = os.listdir(model_dir)
+    model_files.sort()
+    print(model_files)
+    if len(model_files) >= 30:
+        os.remove(model_dir+model_files[0])
+
+
+    now = datetime.datetime.now()
+    file_name = '{0:%d%H%M%S}'.format(now) + ".png"
+    img.save(f'/projects/static/img/draw_img/{file_name}')
 
     re,pr=pred(img)
     ste = status(re,pr)
@@ -58,15 +69,26 @@ def set_data():
         "p": pr,
         "s": ste,
         "cs": cls_ste,
-        "img": img_name
+        "img": file_name
     }
+    session['r'] = re
+    session['p'] = pr
+    session['s'] = ste
+    session['cs'] = cls_ste
+    session['img'] = file_name
 
     return jsonify(values=json.dumps(return_json))
 
 
 @app.route('/battle', methods=['POST'])
 def battle():
-    return render_template("battle.html",css='draw')
+    re = session['r'] 
+    pr = session['p'] 
+    ste = session['s'] 
+    cls_ste = session['cs'] 
+    file_name = session['img'] 
+    
+    return render_template("battle.html",r=re,p=pr,s=ste,cs=cls_ste, css='draw')
 
 if __name__ == '__main__':
   app.run()
