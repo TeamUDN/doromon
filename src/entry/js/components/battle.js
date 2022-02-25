@@ -3,6 +3,7 @@ const top = new Vue({
   // FlaskとVueを共存させるためにDelimiterを変更する
   delimiters: ["[[", "]]"],
   data: {
+    enemy_info: null,
     radius_data1: [],
     radius_data2: [],
     radius_data3: [],
@@ -22,6 +23,15 @@ const top = new Vue({
     starthp:0
   },
   mounted() {
+    // json取得
+    axios
+      .get('../../../static/json/enemy.json')
+      .then(response => {
+        // 取得したデータを配列に格納
+        this.enemy_info = response.data.data
+        console.log(this.enemy_info)
+        console.log(this.enemy_info[0].name)
+      })
     // 自作キャラのパラメータ取得
     this.radius_data1 = document.getElementById('p').value
     this.radius_data2 = document.getElementById('r').value
