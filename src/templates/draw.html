@@ -2,31 +2,39 @@
 <input id="soundCheck" value="{{ sound }}" style="display: none;"></input>
 
 <div id="drawPage">
-  <button id="drawStartBtn"  class="btnBase red">絵を描く！</button>
-
-  <div id="drawArea" style="display:none;">
-    <div id="timerArea">
-      <p>のこり</p>
-      <span id="countdown">20</span>
-      <p>秒</p>
+  <div id="userDrawArea">
+    <div class="leftArea">
+      <button id="drawStartBtn"  class="btnBase red">絵を描く！</button>
+      <div id="drawArea" style="display:none;">
+        <div id="timerArea">
+          <p>のこり</p>
+          <span id="countdown">20</span>
+          <p>秒</p>
+        </div>
+        <div class="canvasArea">
+          <canvas id="canvas" width="500" height="500"></canvas>
+        </div>
+        <button class="btnBase gray" id="clear">全部消す</button>
+        <button id="submit" style="display: none;">送信</button>
+        <!--<div id="result"><img src=""></div>-->
+      </div>
     </div>
-    <div class="canvasArea">
-      <canvas id="canvas" width="500" height="500"></canvas>
+    <div class="rightArea">
+      <div class="allSample">
+        <p>sample</p>
+      </div>
     </div>
-    <button class="btnBase gray" id="clear">全部消す</button>
-    <button id="submit" style="display: none;">送信</button>
-    <!--<div id="result"><img src=""></div>-->
   </div>
 
   <div id="resultArea" style="display:none;">
-    <div id="leftArea">
+    <div class="leftArea">
       <div id="drawImgShow">
       </div>
       <form id="battleForm" action="/battle" method="POST">
         <button class="btnBase red" type="submit">たたかう！</button>
       </form>
     </div>
-    <div id="rightArea">
+    <div class="rightArea">
       <div class="chartArea">
         <div class="chartCanvas">
           <canvas id="circleChart"></canvas>
@@ -128,7 +136,7 @@
         console.log(prm);
         console.log(prm.r);
         // canvasを非表示
-        document.getElementById("drawArea").style.display = 'none';
+        document.getElementById("userDrawArea").style.display = 'none';
         // resultAreaを表示
         document.getElementById("resultArea").style.display = 'flex';
         // imgを表示

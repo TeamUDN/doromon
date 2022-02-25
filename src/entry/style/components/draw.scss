@@ -31,6 +31,14 @@
   box-sizing: border-box;
 }
 
+#userDrawArea {
+  width: fit-content;
+  display: flex;
+  gap: 2rem;
+  margin: 0 auto;
+  align-items: center;
+}
+
 #resultArea {
   width: fit-content;
   display: flex;
@@ -53,11 +61,11 @@
   width: 40rem;
 }
 
-#leftArea {
+.leftArea {
   width: fit-content;
   height: fit-content;
 }
-#rightArea {
+.rightArea {
   width: fit-content;
   height: fit-content;
 }
