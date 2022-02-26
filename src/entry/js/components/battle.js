@@ -4,7 +4,7 @@ const top = new Vue({
   delimiters: ["[[", "]]"],
   data: {
     enemy_info: null,
-    radius_data1: [5, 3, 1],
+    radius_data1: [],
     radius_data2: [],
     radius_data3: [],
     radius_data4: [],
@@ -501,7 +501,7 @@ const top = new Vue({
 
       //12 イルカ
       if (this.radius_data1.indexOf(3) != -1) {
-        if (turn_count % 2 == 0) {
+        if (this.turn_count % 2 == 0) {
           console.log("【群れアタック】発動")
           var damage = Math.round(this.radius_data3["speed"] * 0.5)
           this.enemy_data3["hp"] -= damage
@@ -511,7 +511,7 @@ const top = new Vue({
       }
 
       if (this.enemy_data1.indexOf(3) != -1) {
-        if (turn_count % 2 == 0) {
+        if (this.turn_count % 2 == 0) {
           console.log("【群れアタック】(敵)発動")
           var damage = Math.round(this.enemy_data3["speed"] * 0.5)
           this.radius_data3["hp"] -= damage
