@@ -1,0 +1,40 @@
+/* 変数宣言 */
+$main-red: #C64756;
+$text-color: #333333;
+$gray: #bbbbbb;
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  width: 100vw;
+  height: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: auto;
+  background-color: $main-red;
+  p {
+    color: #ffffff;
+    text-align: center;
+  }
+}
+
+.btnBase {
+  width: fit-content;
+  padding: 1rem 1.8rem;
+  font-size: 1.3rem;
+  border-radius: 5px;
+}
+.red {
+  color: #ffffff;
+  background-color: $main-red;
+}
+.gray{
+  color: $text-color;
+  background-color: $gray;
+}

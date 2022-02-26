@@ -1,103 +1,264 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}{% block content %}
+<input id="soundCheck" value="{{ sound }}" style="display: none;"></input>
 
-<head>
-  <meta charset="utf-8">
-  <title>お絵描き</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <style>
-  .option{
-        width: 250px;
-      }
-</style>
-</head >
-        <body>
-          <canvas id="canvas" width="500" height="300" style="border: solid 1px #000;box-sizing: border-box;"></canvas>
-          <div class="option">
+<div id="drawPage">
+  <div id="userDrawArea">
+    <div class="leftArea">
+      <button id="drawStartBtn"  class="btnBase red">絵を描く！</button>
+      <div id="drawArea" style="display:none;">
+        <div id="timerArea">
+          <p>のこり</p>
+          <span id="countdown">20</span>
+          <p>秒</p>
+        </div>
+        <div class="canvasArea">
+          <canvas id="canvas" width="500" height="500"></canvas>
+        </div>
+        <button class="btnBase gray" id="clear">全部消す</button>
+        <button id="submit" style="display: none;">送信</button>
+        <!--<div id="result"><img src=""></div>-->
+      </div>
+    </div>
+    <div class="rightArea">
+      <div class="sampleFlex">
+        <div class="border ten">
+          <p class="title">天タイプ</p>
+          <div class="allSample">
+            <p>飛行機</p>
+            <p>天使</p>
+            <p>骸骨</p>
+            <p>モナリザ</p>
+            <p>竜巻</p>
           </div>
-          <input type="button" value="clear" id="clear">
-            <button id="submit">送信</button>
-            <div id="result"><img src=""></div>
-            <script>
-              // canvas
-              var cnvs = document.getElementById('canvas');
-              var ctx = cnvs.getContext('2d');
+        </div>
+        <div class="border ti">
+          <p class="title">地タイプ</p>
+          <div class="allSample">
+            <p>犬</p>
+            <p>テディベア</p>
+            <p>エッフェル塔</p>
+            <p>トラ</p>
+            <p>傘</p>
+            <p>シマウマ</p>
+          </div>
+        </div>
+        <div class="border umi">
+          <p class="title">海タイプ</p>
+          <div class="allSample">
+            <p>イルカ</p>
+            <p>サメ</p>
+            <p>雪だるま</p>
+            <p>潜水艦</p>
+            <p>洗濯機</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="resultArea" style="display:none;">
+    <div class="leftArea">
+      <div id="drawImgShow">
+      </div>
+      <form id="battleForm" action="/battle" method="POST">
+        <button class="btnBase red" type="submit">たたかう！</button>
+      </form>
+    </div>
+    <div class="rightArea">
+      <div class="chartArea">
+        <div class="chartCanvas">
+          <canvas id="circleChart"></canvas>
+        </div>
+        <div class="chartCanvas">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-              // 変数宣言
-              const cnvWidth = 500;
-              const cnvHeight = 500;
-              var cnvColor = "0, 0, 0, 1";  // 線の色
-              var cnvBold = 3;  // 線の太さ
-              var clickFlg = 0;  // クリック中の判定 1:クリック開始 2:クリック中
-              var bgColor = "rgb(255,255,255)";
-
-              // canvasの背景色を設定
-              setBgColor();
-
-              // canvas上でのイベント
-              $("#canvas").mousedown(function(){
-                clickFlg = 1; // マウス押下開始
-                }).mouseup(function(){
-                            clickFlg = 0; // マウス押下終了
-                }).mousemove(function(e){
-                  // マウス移動処理
-                  if(!clickFlg) return false;
-                          draw(e.offsetX, e.offsetY);
-                });
-
-              // 描画処理
-              function draw(x, y) {
-                ctx.lineWidth = cnvBold;
-              ctx.strokeStyle = 'rgba('+cnvColor+')';
-              // 初回処理の判定
-              if (clickFlg == "1") {
-                clickFlg = "2";
-              ctx.beginPath();
-              ctx.lineCap = "round";  //　線を角丸にする
-              ctx.moveTo(x, y);
-      } else {
-                ctx.lineTo(x, y);
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+  $("#drawStartBtn").click(function(){
+    console.log('timer')
+    // startBtnを非表示
+    document.getElementById('drawStartBtn').style.display = 'none';
+    // timerAreaを表示
+    document.getElementById('drawArea').style.display = 'block';
+    count = 20;
+    $('#countdown').text(count);
+    cnDown = setInterval(function(){
+      count--;
+      if(count <= 0){
+        clearInterval(cnDown);
+        document.getElementById('submit').click();
       }
-              ctx.stroke();
-    };
+      $('#countdown').text(count);
+    },1000);
+  });
 
-              // 描画クリア
-              $("#clear").click(function(){
-                ctx.clearRect(0, 0, cnvWidth, cnvHeight);
-              setBgColor();
+  // canvas
+  var cnvs = document.getElementById('canvas');
+  var ctx = cnvs.getContext('2d');
+
+  // 変数宣言
+  const cnvWidth = 500;
+  const cnvHeight = 500;
+  var cnvColor = "0, 0, 0, 1";  // 線の色
+  var cnvBold = 3;  // 線の太さ
+  var clickFlg = 0;  // クリック中の判定 1:クリック開始 2:クリック中
+  var bgColor = "rgb(255,255,255)";
+
+  // canvasの背景色を設定
+  setBgColor();
+
+  // canvas上でのイベント
+  $("#canvas").mousedown(function(){
+    clickFlg = 1; // マウス押下開始
+    }).mouseup(function(){
+      clickFlg = 0; // マウス押下終了
+    }).mousemove(function(e){
+      // マウス移動処理
+      if(!clickFlg) return false;
+      draw(e.offsetX, e.offsetY);
     });
 
-              // canvasを画像で保存
-              $("#submit").click(function(){
-                canvas = document.getElementById('canvas');
-              var base64 = canvas.toDataURL("image/png");
-              //document.getElementById("download").href = base64;
-
-              var fData = new FormData();
-                fData.append('img', base64);
-                $.ajax({
-                  url: '/draw_post',
-                  type: 'POST',
-                  data: fData,
-                  contentType: false,
-                  processData: false,
-                  success: function (data, dataType) {
-                    //非同期で通信成功時に読み出される [200 OK 時]
-                    console.log('Success', data);
-                  },
-                  error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    //非同期で通信失敗時に読み出される
-                    console.log('Error : ' + errorThrown);
-                  }
-                });
-    });
-
-              function setBgColor(){
-                // canvasの背景色を設定
-                ctx.fillStyle = bgColor;
-              ctx.fillRect(0,0,cnvWidth,cnvHeight);
+      // 描画処理
+      function draw(x, y) {
+        ctx.lineWidth = cnvBold;
+      ctx.strokeStyle = 'rgba('+cnvColor+')';
+      // 初回処理の判定
+      if (clickFlg == "1") {
+        clickFlg = "2";
+      ctx.beginPath();
+      ctx.lineCap = "round";  //　線を角丸にする
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
     }
-    </script>
-    </body>
+    ctx.stroke();
+  };
 
-</html>
+    // 描画クリア
+    $("#clear").click(function(){
+      ctx.clearRect(0, 0, cnvWidth, cnvHeight);
+    setBgColor();
+  });
+
+  // canvasを画像で保存
+  $("#submit").click(function(){
+    canvas = document.getElementById('canvas');
+  var base64 = canvas.toDataURL("image/png");
+  //document.getElementById("download").href = base64;
+
+  var fData = new FormData();
+    fData.append('img', base64);
+    $.ajax({
+      url: '/draw_post',
+      type: 'POST',
+      data: fData,
+      contentType: false,
+      processData: false,
+      success: function (data, dataType) {
+        //非同期で通信成功時に読み出される [200 OK 時]
+        console.log('Success', data);
+        const prm = JSON.parse(data.values);
+        console.log(prm);
+        console.log(prm.r);
+        // canvasを非表示
+        document.getElementById("userDrawArea").style.display = 'none';
+        // resultAreaを表示
+        document.getElementById("resultArea").style.display = 'flex';
+        // imgを表示
+        var parent = document.getElementById("drawImgShow");
+        var new_img = document.createElement('img');
+        new_img.src = '../static/img/draw_img/'+prm.img;
+        new_img.width = 500;
+        new_img.height = 500;
+        parent.appendChild(new_img);
+        // json取得
+        var className = [];
+        $.getJSON("../static/json/status.json", function(json){
+          className.push(json.data[prm.r[0]].name);
+          className.push(json.data[prm.r[1]].name);
+          className.push(json.data[prm.r[2]].name);
+          console.log(className);
+          //円グラフ作成
+          var ctx = document.getElementById('circleChart').getContext('2d');
+          var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: [className[0], className[1], className[2]],
+              datasets: [{
+                backgroundColor: ['rgb(241,158,194)', 'rgb(255,231,63)', 'rgb(246,173,60)'],
+                data: [prm.p[0], prm.p[1], prm.p[2],],
+              }]
+            },
+            options: {
+            }
+          });
+          //棒グラフ作成
+          var ctx = document.getElementById('barChart').getContext('2d');
+          var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ["攻撃力","防御力","速さ","HP"],
+              datasets: [{
+                label: className[0],
+                borderWidth:1,
+                backgroundColor: "rgb(241,158,194)",
+                borderColor: "rgb(241,158,194)",
+                data: [prm.cs[0][0],prm.cs[0][1],prm.cs[0][2],prm.cs[0][3]]
+              },{
+                label: className[1],
+                borderWidth:1,
+                backgroundColor: "rgb(255,231,63)",
+                borderColor: "rgb(255,231,63)",
+                data: [prm.cs[1][0],prm.cs[1][1],prm.cs[1][2],prm.cs[1][3]]
+              },{
+                label: className[2],
+                borderWidth:1,
+                backgroundColor: "rgb(246,173,60)",
+                borderColor: "rgb(246,173,60)",
+                data: [prm.cs[2][0],prm.cs[2][1],prm.cs[2][2],prm.cs[2][3]]
+              }
+              ]
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  stacked: true, //積み上げ棒グラフにする設定
+                  categoryPercentage:0.5 //棒グラフの太さ
+                  }],
+                  yAxes: [{
+                    stacked: true //積み上げ棒グラフにする設定
+                }]
+              },
+              legend: {
+                labels: {
+                  boxWidth:30,
+                  padding:30 //凡例の各要素間の距離
+                },
+                display: true
+              },
+              tooltips:{
+                mode:'label' //マウスオーバー時に表示されるtooltip
+              }
+            }
+          });
+        });
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //非同期で通信失敗時に読み出される
+        console.log('Error : ' + errorThrown);
+      }
+    });
+  });
+
+  function setBgColor(){
+    // canvasの背景色を設定
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0,0,cnvWidth,cnvHeight);
+  }
+</script>
+
+{% endblock %}

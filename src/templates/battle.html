@@ -1,0 +1,23 @@
+{% extends "layout.html" %}{% block content %}
+<input id="soundCheck" value="{{ sound }}" style="display: none;"></input>
+
+<input id="p" value="{{ p }}" style="display: none;" />
+<input id="r" value="{{ r }}" style="display: none;" />
+<input id="s" value="{{ s }}" style="display: none;" />
+<input id="cs" value="{{ cs }}" style="display: none;" />
+
+{{p}}
+{{r}}
+{{s}}
+{{cs}}
+
+<div id="battlePage">
+  <p>battle</p>
+  <img src="../static/img/draw_img/{{img}}" id="user_image" alt="">
+  <img v-if="enemy_info" :src="img_url" id="enemy_image" alt="">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+<script src="../static/webpack/battle.js"></script>
+{% endblock %}

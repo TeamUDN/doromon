@@ -1,0 +1,188 @@
+{
+  "data":[
+    {
+      "name": "enemy0",
+      "status": {
+      "class": 1,
+      "percentage": 1,
+      "status": 1
+      }
+    },
+    {
+      "name": "air_1",
+      "status": {
+      "class": [0, 4, 3],
+      "percentage": [53, 25, 20],
+      "status": {"attack": 29, "attribute": 0, "defence": 7, "hp": 32, "speed": 33}
+      }
+    },
+    {
+      "name": "ang_1",
+      "status": {
+      "class": [1, 0, 6],
+      "percentage": [100, 0, 0],
+      "status": {"attack": 20, "attribute": 0, "defence": 40, "hp": 50, "speed": 10}
+      }
+    },
+    {
+      "name": "dog_1",
+      "status": {
+      "class": [2, 11, 15],
+      "percentage": [93, 4, 1],
+      "status": {"attack": 39, "attribute": 1, "defence": 19, "hp": 20, "speed": 19}
+      }
+    },
+    {
+      "name": "dol_1",
+      "status": {
+      "class": [3, 4, 2],
+      "percentage": [99, 0, 0],
+      "status": {"attack": 19, "attribute": 2, "defence": 9, "hp": 29, "speed": 39}
+      }
+    },
+    {
+      "name": "sha_1",
+      "status": {
+      "class": [4, 3, 0],
+      "percentage": [98, 1, 0],
+      "status": {"attack": 59, "attribute": 2, "defence": 0, "hp": 19, "speed": 39}
+      }
+    },
+    {
+      "name": "sku_1",
+      "status": {
+      "class": [8, 5, 11],
+      "percentage": [47, 24, 7],
+      "status": {"attack": 23, "attribute": 1, "defence": 33, "hp": 22, "speed": 7}
+      }
+    },
+    {
+      "name": "sno_1",
+      "status": {
+      "class": [8, 6, 1],
+      "percentage": [61, 38, 0],
+      "status": {"attack": 35, "attribute": 1, "defence": 20, "hp": 43, "speed": 19}
+      }
+    },
+    {
+      "name": "sub_1",
+      "status": {
+      "class": [4, 3, 7],
+      "percentage": [31, 28, 20],
+      "status": {"attack": 28, "attribute": 2, "defence": 14, "hp": 22, "speed": 19}
+      }
+    },
+    {
+      "name": "ted_1",
+      "status": {
+      "class":  [2, 11, 8],
+      "percentage":[52, 24, 22],
+      "status": {"attack": 41, "attribute": 1, "defence": 21, "hp": 26, "speed": 12}
+      }
+    },
+    {
+      "name": "eif_1",
+      "status": {
+      "class":  [9, 6, 8],
+      "percentage":[36, 26, 8],
+      "status": {"attack": 14, "attribute": 1, "defence": 18, "hp": 45, "speed": 5}
+      }
+    },
+    {
+      "name": "mon_1",
+      "status": {
+      "class":  [10, 11, 5],
+      "percentage":[95, 1, 1],
+      "status": {"attack": 57, "attribute": 0, "defence": -18, "hp": 38, "speed": 28}
+      }
+    },
+    {
+      "name": "tig_1",
+      "status": {
+      "class":  [11, 8, 15],
+      "percentage":[69, 16, 10],
+      "status": {"attack": 42, "attribute": 1, "defence": 13, "hp": 29, "speed": 12}
+      }
+    },
+    {
+      "name": "tor_1",
+      "status": {
+      "class":   [12, 6, 1],
+      "percentage":[98, 1, 0],
+      "status": {"attack": 29, "attribute": 0, "defence": 0, "hp": 10, "speed": 59}
+      }
+    },
+    {
+      "name": "umb_1",
+      "status": {
+      "class":   [13, 2, 1],
+      "percentage":[99, 0, 0],
+      "status": {"attack": 59, "attribute": 1, "defence": 9, "hp": 9, "speed": 9}
+      }
+    },
+    {
+      "name": "was_1",
+      "status": {
+      "class":  [14, 10, 12],
+      "percentage":[80, 5, 4],
+      "status": {"attack": 40, "attribute": 2, "defence": 7, "hp": 38, "speed": 3}
+      }
+    },
+    {
+      "name": "zeb_1",
+      "status": {
+      "class":  [15, 11, 2],
+      "percentage":[66, 33, 0],
+      "status": {"attack": 29, "attribute": 2, "defence": 3, "hp": 23, "speed": 42}
+      }
+    },
+    {
+      "name": "kim_1",
+      "status": {
+      "class":  [8, 6, 2],
+      "percentage":[77, 21, 0],
+      "status": {"attack": 37, "attribute": 1, "defence": 28, "hp": 41, "speed": 10}
+      }
+    },
+    {
+      "name": "kim_2",
+      "status": {
+      "class":  [10, 14, 11],
+      "percentage":[83, 12, 1],
+      "status": {"attack": 55, "attribute": 0, "defence": -15, "hp": 38, "speed": 25}
+      }
+    },
+    {
+      "name": "kim_3",
+      "status": {
+      "class":  [14, 10, 1],
+      "percentage":[40, 15, 13],
+      "status": {"attack": 29, "attribute": 2, "defence": 6, "hp": 30, "speed": 5}
+      }
+    },
+    {
+      "name": "udn_1",
+      "status": {
+      "class":  [1, 2, 0],
+      "percentage":[35, 17, 12],
+      "status": {"attack": 16, "attribute": 0, "defence": 18, "hp": 25, "speed": 10}
+      }
+    },
+    {
+      "name": "dor_1",
+      "status": {
+      "class":  [11, 1, 15],
+      "percentage":[36, 16, 7],
+      "status": {"attack": 22, "attribute": 1, "defence": 10, "hp": 20, "speed": 9}
+      }
+    },
+    {
+      "name": "kim_4",
+      "status": {
+      "class":  [2, 3, 1],
+      "percentage":[17, 16, 15],
+      "status": {"attack": 13, "attribute": 1, "defence": 11, "hp": 15, "speed": 11}
+      }
+    }
+  ]
+}
