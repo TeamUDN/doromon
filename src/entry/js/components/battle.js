@@ -4,7 +4,7 @@ const top = new Vue({
   delimiters: ["[[", "]]"],
   data: {
     enemy_info: null,
-    radius_data1: [],
+    radius_data1: [5,3,1],
     radius_data2: [],
     radius_data3: [],
     radius_data4: [],
@@ -45,6 +45,7 @@ const top = new Vue({
         console.log(this.enemy_data1)
         console.log(this.radius_data1)
         this.battle_start()
+        this.radius_data1 = this.radius_data1.split(',');
       })
     // 自作キャラのパラメータ取得
     this.radius_data2 = document.getElementById('p').value //確率
@@ -85,13 +86,13 @@ const top = new Vue({
         this.check_speed()
       }
       if (this.battle_manager_order == 5) {
-        //this.attack_skill(this.player)
+        this.attack_skill(this.player)
       }
       if (this.battle_manager_order == 6) {
         this.attack(this.player)
       }
       if (this.battle_manager_order == 7) {
-        //this.attack_skill(this.enemy)
+        this.attack_skill(this.enemy)
       }
       if (this.battle_manager_order == 8) {
         this.attack(this.enemy)
@@ -115,15 +116,19 @@ const top = new Vue({
       //5のスキルチェック
       if (this.radius_data1.indexOf(5) != -1) {
         console.log("【摸倣学習】発動")
+        console.log(typeof(this.radius_data1))
+        console.log(typeof(this.enemy_data1[0]))
+        console.log(typeof(this.enemy_data1))
+
         this.radius_data1.push(this.enemy_data1[0])
         console.log("相手の" + this.enemy_data1[0] + "のスキルをコピーした！")
-        this.log_message = "【摸倣学習】発動　相手の" + this.enemy_data1[0] + "のスキルをコピーした！"
+        this.log_message = "相手の" + this.enemy_data1[0] + "のスキルをコピーした！"
         this.skill_flag = true
       } if (this.enemy_data1.indexOf(5) != -1) {
         console.log("【摸倣学習】(敵)発動")
         this.enemy_data1.push(this.raidus_data1[0])
         console.log("自分の" + this.enemy_data1[0] + "のスキルをコピーされた！")
-        this.log_message = "【摸倣学習】発動　自分の" + this.enemy_data1[0] + "のスキルをコピーされた！"
+        this.log_message = "自分の" + this.enemy_data1[0] + "のスキルをコピーされた！"
         this.skill_flag = true
       }
       if (this.skill_flag == false) {
@@ -348,7 +353,7 @@ const top = new Vue({
 
         //12 竜巻
         if (this.enemy_data1.indexOf(12) != -1) {
-          if (getRandomInt(1,100) <= 20) {
+          if (this.getRandomInt(1,100) <= 20) {
             console.log("【乱気流】(敵)発動")
             damage = 0
             console.log("敵は竜巻の力で攻撃を回避した！")
@@ -358,7 +363,7 @@ const top = new Vue({
 
         //10 モナ・リザ
         if (this.enemy_data1.indexOf(10) != -1) {
-          if (getRandomInt(1,100) <= 20) {
+          if (this.getRandomInt(1,100) <= 20) {
             console.log("【眼力解放】(敵)発動")
             console.log("敵はモナ・リザの真の力で攻撃を反射した！")
             this.radius_data3["hp"] -= damage
@@ -382,7 +387,7 @@ const top = new Vue({
         
         //12 竜巻
         if (this.radius_data1.indexOf(12) != -1) {
-          if (getRandomInt(1,100) <= 20) {
+          if (this.getRandomInt(1,100) <= 20) {
             console.log("【乱気流】発動")
             damage = 0
             console.log("あなたは竜巻の力で攻撃を回避した！")
@@ -392,7 +397,7 @@ const top = new Vue({
 
         //10モナ・リザ
         if (this.radius_data1.indexOf(10) != -1) {
-          if (getRandomInt(1,100) <= 10) {
+          if (this.getRandomInt(1,100) <= 10) {
             console.log("【眼力解放】発動")
             console.log("あなたはモナ・リザの真の力で攻撃を反射した！")
             this.enemy_data3["hp"] -= damage
