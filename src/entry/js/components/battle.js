@@ -4,7 +4,7 @@ const top = new Vue({
   delimiters: ["[[", "]]"],
   data: {
     enemy_info: null,
-    radius_data1: [7,1,2],
+    radius_data1: [7, 1, 2],
     radius_data2: [],
     radius_data3: [],
     radius_data4: [],
@@ -118,8 +118,9 @@ const top = new Vue({
       }
       if (this.skill_flag == false) {
         this.battle_manager_order += 1
-      }else{
-        this.skill_flag = false}
+      } else {
+        this.skill_flag = false
+      }
     },
     check_speed_skill: function () {
       //6 snowmanのスキルチェック
@@ -128,36 +129,37 @@ const top = new Vue({
         this.radius_data3['hp'] += Math.round(this.starthp * 0.03)
         console.log("あなたの体力が" + Math.round(this.starthp * 0.03) + "回復した！")
         this.skill_flag = true
-      } if (this.enemy_data1.indexOf(6) != -1)
-      console.log("【雪だるま作ろう】(敵)発動")
+      } if (this.enemy_data1.indexOf(6) != -1) {
+        console.log("【雪だるま作ろう】(敵)発動")
         this.enemy_data3['hp'] += Math.round(this.enemystarthp * 0.03)
-      console.log("敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！")
-      this.skill_flag = true
-      
+        console.log("敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！")
+        this.skill_flag = true
+      }
+
       //7 submarine
-      if (this.radius_data1.indexOf(7) != -1){
+      if (this.radius_data1.indexOf(7) != -1) {
         console.log("【浮上】発動")
-        if(this.turn_count >= 6){
+        if (this.turn_count >= 6) {
           this.radius_data3['attack'] += 30
           this.radius_data3['defence'] -= 15
           console.log("あなたの攻撃力が30上がり、防御力が15下がった！")
           this.skill_flag = true
         }
       }
-      if (this.enemy_data1.indexOf(7) != -1){
+      if (this.enemy_data1.indexOf(7) != -1) {
         console.log("【浮上】発動")
-        if(this.turn_count >= 6){
+        if (this.turn_count >= 6) {
           this.enemy_data3['attack'] += 30
           this.enemy_data3['defence'] -= 15
           console.log("敵の攻撃力が30上がり、防御力が15下がった！")
           this.skill_flag = true
         }
       }
-      
+
       //9 エッフェル塔
-      if (this.enemy_data1.indexOf(9) != -1){
+      if (this.enemy_data1.indexOf(9) != -1) {
         console.log("【動かざる巨塔】発動")
-        if(this.radius_data3['hp']/this.starthp <= 0.15){
+        if (this.radius_data3['hp'] / this.starthp <= 0.15) {
           this.radius_data3['attack'] *= 3
           this.radius_data3['defence'] *= 3
           this.radius_data3['speed'] *= 3
@@ -165,7 +167,7 @@ const top = new Vue({
           this.skill_flag = true
         }
         console.log("【動かざる巨塔】(敵)発動")
-        if(this.enemy_data3['hp']/this.enemystarthp <= 0.15){
+        if (this.enemy_data3['hp'] / this.enemystarthp <= 0.15) {
           this.enemy_data3['attack'] *= 3
           this.enemy_data3['defence'] *= 3
           this.enemy_data3['speed'] *= 3
@@ -175,13 +177,13 @@ const top = new Vue({
       }
 
       //15 シマウマ
-      if(this.radius_data1.indexOf(9) != -1){
+      if (this.radius_data1.indexOf(9) != -1) {
         console.log("【生存本能】発動")
         this.radius_data3['speed'] += 10
         console.log("あなたの素早さが10上がった")
         this.skill_flag = true
-        }
-      if(this.enemy_data1.indexOf(9) != -1){
+      }
+      if (this.enemy_data1.indexOf(9) != -1) {
         console.log("【生存本能】(敵)発動")
         this.enemy_data3['speed'] += 10
         console.log("あなたの素早さが10上がった")
@@ -190,8 +192,9 @@ const top = new Vue({
 
       if (this.skill_flag == false) {
         this.battle_manager_order += 1
-      }else{
-        this.skill_flag = false}
+      } else {
+        this.skill_flag = false
+      }
     },
     check_speed: function () {
       if (this.radius_data3['speed'] >= this.enemy_data3['speed']) {
@@ -224,11 +227,63 @@ const top = new Vue({
       }
       this.end_flag = true
     },
-    attack_skill: function(former){
-      if(former == true){
-        
-      }
+    attack_skill: function (former) {
+      this.damage_times = 1.0
+      if (former == true) {
+        //0 飛行機
+        if (this.radius_data1.indexOf(0) != -1) {
+          if (this.enemy_data3["attribute"] == 2) {
+            console.log("【Take off!!】発動")
+            this.damage_times *= 1.5
+            console.log("海属性に攻撃時、ダメージが1.5倍!")
+            this.skill_flag = true
+          }
+        }
+        //4 鮫
+        if (this.radius_data1.indexOf(4) != -1) {
+          if (this.enemy_data3["attribute"] == 1) {
+            console.log("【サメマゲドン】発動")
+            this.damage_times *= 1.5
+            console.log("地属性に攻撃時、ダメージが1.5倍!")
+            this.skill_flag = true
+          }
+        }
+        //13 傘
+        if (this.radius_data1.indexOf(13) != -1) {
+          if (this.enemy_data3["attribute"] == 0) {
+            console.log("【パラソル】発動")
+            this.damage_times *= 1.5
+            console.log("天属性に攻撃時、ダメージが1.5倍!")
+            this.skill_flag = true
+          }
+        }
 
+      } else {
+        if (this.enemy_data1.indexOf(0) != -1) {
+          if (this.radius_data3["attribute"] == 2) {
+            console.log("【Take off!!】(敵)発動")
+            this.damage_times *= 1.5
+            console.log("海属性に攻撃時、ダメージが1.5倍!")
+            this.skill_flag = true
+          }
+        }
+        if (this.enemy_data1.indexOf(4) != -1) {
+          if (this.radius_data3["attribute"] == 1) {
+            console.log("【サメマゲドン】(敵)発動")
+            this.damage_times *= 1.5
+            console.log("地属性に攻撃時、ダメージが1.5倍!")
+            this.skill_flag = true
+          }
+        }
+        if (this.enemy_data1.indexOf(13) != -1) {
+          if (this.radius_data3["attribute"] == 0) {
+            console.log("【パラソル】発動")
+            this.damage_times *= 1.5
+            console.log("天属性に攻撃時、ダメージが1.5倍!")
+            this.skill_flag = true
+          }
+        }
+      }
     },
     attack: async function (former) {
       if (former == true) {//自分の攻撃
@@ -248,7 +303,6 @@ const top = new Vue({
       }
     },
     check_attribute: async function () {
-      this.damage_times = 1.0
       if (this.attacker == 0 && this.defender == 1) {
         this.damage_times *= 1.2
         console.log("地属性に効果抜群だ！")
