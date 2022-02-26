@@ -24,7 +24,10 @@ const top = new Vue({
     enemystarthp: 0,
     enemy_number: 0,
     skill_flag: false,
-    img_url: ''
+    img_url: '',
+    log_message: '',
+    user_hp: '',
+    enemy_hp: ''
   },
   mounted() {
     // json取得
@@ -58,12 +61,15 @@ const top = new Vue({
       //バトル開始
       if (this.battle_manager_order == 0) {
         console.log("battle start!")
+        this.log_message = 'バトル開始！'
         this.radius_data3["hp"] *= 10
         this.enemy_data3["hp"] *= 10
         this.starthp = this.radius_data3["hp"]
         this.enemystarthp = this.enemy_data3["hp"]
         console.log("あなたのHP" + this.starthp)
+        this.user_hp = this.starthp
         console.log("敵のHP" + this.enemystarthp)
+        this.enemy_hp = this.enemystarthp
       }
       //
       if (this.battle_manager_order == 1) {
@@ -111,11 +117,13 @@ const top = new Vue({
         console.log("【摸倣学習】発動")
         this.radius_data1.push(this.enemy_data1[0])
         console.log("相手の" + this.enemy_data1[0] + "のスキルをコピーした！")
+        this.log_message = "【摸倣学習】発動　相手の" + this.enemy_data1[0] + "のスキルをコピーした！"
         this.skill_flag = true
       } if (this.enemy_data1.indexOf(5) != -1) {
         console.log("【摸倣学習】(敵)発動")
         this.enemy_data1.push(this.raidus_data1[0])
         console.log("自分の" + this.enemy_data1[0] + "のスキルをコピーされた！")
+        this.log_message = "【摸倣学習】発動　自分の" + this.enemy_data1[0] + "のスキルをコピーされた！"
         this.skill_flag = true
       }
       if (this.skill_flag == false) {
@@ -129,15 +137,18 @@ const top = new Vue({
       if (this.radius_data1.indexOf(6) != -1) {
         console.log("【雪だるま作ろう】発動")
         this.radius_data3['hp'] += Math.round(this.starthp * 0.03)
+        this.user_hp = this.radius_data3["hp"]
         console.log("あなたの体力が" + Math.round(this.starthp * 0.03) + "回復した！")
+        this.log_message = "【雪だるま作ろう】発動　あなたの体力が" + Math.round(this.starthp * 0.03) + "回復した！"
         this.skill_flag = true
       } if (this.enemy_data1.indexOf(6) != -1) {
         console.log("【雪だるま作ろう】(敵)発動")
         this.enemy_data3['hp'] += Math.round(this.enemystarthp * 0.03)
+        this.enemy_hp = this.enemy_data3["hp"]
         console.log("敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！")
+        this.log_message = "【雪だるま作ろう】発動　敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！"
         this.skill_flag = true
       }
-
       //7 submarine
       if (this.radius_data1.indexOf(7) != -1) {
         console.log("【浮上】発動")
@@ -145,6 +156,7 @@ const top = new Vue({
           this.radius_data3['attack'] += 30
           this.radius_data3['defence'] -= 15
           console.log("あなたの攻撃力が30上がり、防御力が15下がった！")
+          this.log_message = 'あなたの攻撃力が30上がり、防御力が15下がった！'
           this.skill_flag = true
         }
       }
@@ -154,6 +166,7 @@ const top = new Vue({
           this.enemy_data3['attack'] += 30
           this.enemy_data3['defence'] -= 15
           console.log("敵の攻撃力が30上がり、防御力が15下がった！")
+          this.log_message = '敵の攻撃力が30上がり、防御力が15下がった！'
           this.skill_flag = true
         }
       }
@@ -226,7 +239,9 @@ const top = new Vue({
     },
     end_check: function () {
       console.log("あなたの体力" + this.radius_data3["hp"])
+      this.user_hp = this.radius_data3["hp"]
       console.log("敵の体力" + this.enemy_data3["hp"])
+      this.enemy_hp = this.enemy_data3["hp"]
       if (this.radius_data3["hp"] <= 0 || this.enemy_data3["hp"] <= 0) {
         console.log("hp_0")
       } else if (this.turn_count == 10) {
@@ -238,8 +253,10 @@ const top = new Vue({
       console.log("end")
       if (this.radius_data3["hp"] >= this.enemy_data3["hp"]) {
         console.log("あなたの勝利です")
+        this.log_message = 'あなたの勝利です！'
       } else {
         console.log("あなたの負けです")
+        this.log_message = 'あなたの負けです…'
       }
       this.end_flag = true
     },
@@ -413,6 +430,7 @@ const top = new Vue({
         this.damage_skill(damage, former)
         this.enemy_data3["hp"] -= damage
         console.log("敵に" + damage + "のダメージ")
+        this.log_message = "敵に" + damage + "のダメージ！"
       } else {//敵の攻撃
         this.attacker = this.enemy_data3["attribute"]
         this.defender = this.radius_data3["attribute"]
@@ -420,18 +438,22 @@ const top = new Vue({
         var damage = Math.round(this.radius_data3["attack"] * this.damage_times * (1 - (this.radius_data3["defence"] / 100)))
         this.radius_data3["hp"] -= damage
         console.log("自分に" + damage + "のダメージ")
+        this.log_message = "自分に" + damage + "のダメージ！"
       }
     },
     check_attribute: async function () {
       if (this.attacker == 0 && this.defender == 1) {
         this.damage_times *= 1.2
         console.log("地属性に効果抜群だ！")
+        this.log_message = "地属性に効果抜群だ！"
       } else if (this.attacker == 1 && this.defender == 2) {
         this.damage_times *= 1.2
         console.log("海属性に効果抜群だ！")
+        this.log_message = "海属性に効果抜群だ！"
       } else if (this.attacker == 2 && this.defender == 0) {
         this.damage_times *= 1.2
         console.log("天属性に効果抜群だ！")
+        this.log_message = "天属性に効果抜群だ！"
       }
       //return this.damage_times
     },
