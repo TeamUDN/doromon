@@ -2,6 +2,7 @@ import json
 import numpy as np
 
 with open('/projects/static/json/status.json') as f:
+#with open('/opt/src/static/json/status.json') as f:
     df = json.load(f)
 
 

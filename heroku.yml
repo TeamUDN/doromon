@@ -1,0 +1,5 @@
+build:
+  languages:
+    - python
+run:
+  web: gunicorn --chdir src app:app --log-file - 
