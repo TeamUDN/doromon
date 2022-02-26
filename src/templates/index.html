@@ -1,22 +1,49 @@
-<!DOCTYPE html>
-<html>
-    <head>
-    </head>
-    <body>
-    <h1>Webアプリ初心者のFlaskチュートリアル</h1>
+{% extends "layout.html" %}{% block content %}
 
-    
-    <script>
-        radius_data1 = {{ r | tojson}};
-        radius_data2 = {{ p | tojson}};
-        radius_data3 = {{ s | tojson}};
-        radius_data4 = {{ cs | tojson}};
-        console.log(radius_data1)
-        console.log(radius_data2)
-        console.log(radius_data3)
-        console.log(radius_data4)
-    </script>
-    
+<div id="topPage">
+    <img class="logo" src="../static/img/logo.png" alt="どろもん！">
 
-    </body>
-</html>
+    <form action="/draw" method="POST">
+        <!--<div id="soundCheckbox">
+            <input type="checkbox" id="sound" class="checkbox" name="sound" value="1" @click="soundPlay">
+            <label for="sound" class="checkbox note_text">音楽の再生を許可しますか？</label>
+        </div>-->
+        <button id="startBtn" class="btnBase red" type="submit">はじめる</button>
+    </form>
+
+    <!-- 画像のループ -->
+    <div class="loop_wrap">
+        <ul>
+            <li><img src="../static/img/top/hikouki.png" alt=""></li>
+            <li><img src="../static/img/top/hone.png" alt=""></li>
+            <li><img src="../static/img/top/inu.png" alt=""></li>
+            <li><img src="../static/img/top/iruka.png" alt=""></li>
+            <li><img src="../static/img/top/kasa.png" alt=""></li>
+            <li><img src="../static/img/top/kuma.png" alt=""></li>
+            <li><img src="../static/img/top/monariza.png" alt=""></li>
+            <li><img src="../static/img/top/same.png" alt=""></li>
+            <li><img src="../static/img/top/sensuikan.png" alt=""></li>
+            <li><img src="../static/img/top/sentakuki.png" alt=""></li>
+            <li><img src="../static/img/top/simauma.png" alt=""></li>
+            <li><img src="../static/img/top/tatumaki.png" alt=""></li>
+        </ul>
+        <ul>
+            <li><img src="../static/img/top/hikouki.png" alt=""></li>
+            <li><img src="../static/img/top/hone.png" alt=""></li>
+            <li><img src="../static/img/top/inu.png" alt=""></li>
+            <li><img src="../static/img/top/iruka.png" alt=""></li>
+            <li><img src="../static/img/top/kasa.png" alt=""></li>
+            <li><img src="../static/img/top/kuma.png" alt=""></li>
+            <li><img src="../static/img/top/monariza.png" alt=""></li>
+            <li><img src="../static/img/top/same.png" alt=""></li>
+            <li><img src="../static/img/top/sensuikan.png" alt=""></li>
+            <li><img src="../static/img/top/sentakuki.png" alt=""></li>
+            <li><img src="../static/img/top/simauma.png" alt=""></li>
+            <li><img src="../static/img/top/tatumaki.png" alt=""></li>
+        </ul>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="../static/webpack/top.js"></script>
+{% endblock %}

@@ -1,0 +1,90 @@
+/* 変数宣言 */
+$main-red: #C64756;
+$text-color: #333333;
+$gray: #bbbbbb;
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  width: 100vw;
+  height: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: auto;
+  background-color: $main-red;
+  p {
+    color: #ffffff;
+    text-align: center;
+  }
+}
+
+.btnBase {
+  width: fit-content;
+  padding: 1rem 1.8rem;
+  font-size: 1.3rem;
+  border-radius: 5px;
+}
+.red {
+  color: #ffffff;
+  background-color: $main-red;
+}
+.gray{
+  color: $text-color;
+  background-color: $gray;
+}
+
+// battle用
+.battle_img {
+  width: 20rem;
+}
+
+/* img animation */
+.animation{
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 1.5s;
+}
+
+// 上下揺れ
+.keyframe1{
+  animation-name: anim_v;
+}
+@keyframes anim_v {
+  0% {
+    transform: translate(0, 0px);
+  }
+  100% {
+    transform: translate(0, 60px);
+  }
+}
+
+// ジャンプ
+.keyframe7 {
+  animation-name: jump;
+  animation-duration: .6s;
+}
+@keyframes jump{
+  0%   { transform:translate(0%, 60px) rotateX(50deg); }
+  100% { transform:translate(0%, 0%); }
+}
+
+// 敗北
+.keyframe6 {
+  width: 10rem;
+  animation-name: poyopoyo;
+}
+@keyframes poyopoyo {
+  0%, 40%, 60%, 80% {
+    transform: scale(1.0);
+  }
+  50%, 70% {
+    transform: scale(0.95);
+  }
+}

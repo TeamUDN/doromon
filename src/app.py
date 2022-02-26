@@ -1,52 +1,100 @@
-
-from flask import Flask,render_template,request
+from fileinput import filename
+from flask import Flask,render_template,request, jsonify, session
+import json
 import base64
 from PIL import Image
-import io 
+import io
 import numpy as np
+
+import datetime
 
 from ml.pred import pred
 from ml.return_status import status
 from ml.return_status import get_cls_status
 import os
+
 #os.system('wget "https://drive.google.com/uc?export=download&id=1mZA0oxgVyhaomDAtM9qhDumeFam1J8vU" -O /projects/ml/cls_model.torch')
 
-
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'secret!'
 
 @app.route('/')
 def index():
     #return "Hello World"
+    #re,pr=pred("anjel.png")
+    #ste = status(re,pr)
+    #cls_ste = get_cls_status(re,pr)
 
-    return render_template("index.html")
+    #return render_template("index.html")
+    session["volume"] = 0
+    return render_template('index.html', css='top')
 
-@app.route('/draw')
+@app.route('/draw', methods=['POST'])
 def draw():
-    return render_template("draw.html")
+    re=0
+    pr=0
+    ste=0
+    cls_ste=0
+    getVolume = request.form.get("sound")
+    session["volume"] = getVolume
+    return render_template("draw.html",r=re,p=pr,s=ste,cs=cls_ste, css='draw', volume=session["volume"])
 
 
 @app.route('/draw_post', methods=['POST'])
 def set_data():
+
     enc_data  = request.form['img']
-    #dec_data = base64.b64decode( enc_data )              # これではエラー  下記対応↓
-    dec_data = base64.b64decode( enc_data.split(',')[1] )# 環境依存の様(","で区切って本体をdecode)
-    img  = Image.open(io.BytesIO(dec_data)).convert("L") 
 
-    img=img.resize((28,28))
-    data=np.asarray(img)
-    data=data-255
+    dec_data = base64.b64decode( enc_data.split(',')[1] )
+    img  = Image.open(io.BytesIO(dec_data)).convert("L")
 
-    print(data.shape)
 
-    re,pr=pred("anjel.png")
+
+    model_dir = '/projects/static/img/draw_img/'
+    #model_dir = '/opt/src/static/img/draw_img/'
+    model_files = os.listdir(model_dir)
+    model_files.sort()
+    print(model_files)
+    if len(model_files) >= 30:
+        os.remove(model_dir+model_files[0])
+
+
+    now = datetime.datetime.now()
+    file_name = '{0:%d%H%M%S}'.format(now) + ".png"
+    img.save(f'/projects/static/img/draw_img/{file_name}')
+    #img.save(f'/opt/src/static/img/draw_img/{file_name}')
+
+    re,pr=pred(img)
     ste = status(re,pr)
     cls_ste = get_cls_status(re,pr)
 
+    #return render_template('draw.html', r=re,p=pr,s=ste,cs=cls_ste, css='draw') #re クラス pr 確率 ste ステータス cls 各クラスのステータス
 
-    #return render_template("index.html")
-    return render_template('index.html', r=re,p=pr,s=ste,cs=cls_ste)
+    return_json = {
+        "r": re,
+        "p": pr,
+        "s": ste,
+        "cs": cls_ste,
+        "img": file_name
+    }
+    session['r'] = re
+    session['p'] = pr
+    session['s'] = ste
+    session['cs'] = cls_ste
+    session['img'] = file_name
 
+    return jsonify(values=json.dumps(return_json))
+
+
+@app.route('/battle', methods=['POST'])
+def battle():
+    re = session['r']
+    pr = session['p']
+    ste = session['s']
+    cls_ste = session['cs']
+    file_name = session['img']
+
+    return render_template("battle.html",r=re,p=pr,s=ste,cs=cls_ste, css='battle', volume=session["volume"],img=file_name)
 
 if __name__ == '__main__':
   app.run()
