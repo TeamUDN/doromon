@@ -94,7 +94,7 @@ def battle():
     cls_ste = session['cs']
     file_name = session['img']
 
-    return render_template("battle.html",r=re,p=pr,s=ste,cs=cls_ste, css='battle', volume=session["volume"])
+    return render_template("battle.html",r=re,p=pr,s=ste,cs=cls_ste, css='battle', volume=session["volume"],img=file_name)
 
 if __name__ == '__main__':
   app.run()

@@ -22,3 +22,4 @@ RUN apt-get install -y libgl1-mesa-dev
 ENV FLASK_APP 'app.py'
 
 CMD gunicorn --bind 0.0.0.0:$PORT wsgi
+
