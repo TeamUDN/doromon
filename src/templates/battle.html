@@ -16,14 +16,14 @@
         <span class="material-icons">favorite</span>
         <p>[[user_hp]]</p>
       </div>
-      <img src="../static/img/draw_img/{{img}}" id="user_image" class="battle_img" alt="">
+      <img src="../static/img/draw_img/{{img}}" id="user_image" class="battle_img animation" :class="{keyframe1:animation_user == 0,keyframe7:animation_user == 1,keyframe6:animation_user == 2}" alt="">
     </div>
     <div class="field">
       <div class="showHP">
         <span class="material-icons">favorite</span>
         <p>[[enemy_hp]]</p>
       </div>
-      <img v-if="enemy_info" :src="img_url" id="enemy_image" class="battle_img" alt="">
+      <img v-if="enemy_info" :src="img_url" id="enemy_image" class="battle_img animation" :class="{keyframe1:animation_enemy == 0,keyframe7:animation_enemy == 1,keyframe6:animation_enemy == 2}" alt="">
     </div>
   </div>
   <div id="skillArea">
@@ -33,6 +33,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.2/dist/confetti.browser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
 <script src="../static/webpack/battle.js"></script>
