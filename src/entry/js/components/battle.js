@@ -28,8 +28,8 @@ const top = new Vue({
     log_message: '',
     user_hp: '',
     enemy_hp: '',
-    radius_revived_flag:false,
-    enemy_revived_flag:false,
+    radius_revived_flag: false,
+    enemy_revived_flag: false,
     animation_user: 0,
     animation_enemy: 0,
   },
@@ -164,8 +164,8 @@ const top = new Vue({
       }
       //7 submarine
       if (this.radius_data1.indexOf(7) != -1) {
-        console.log("【浮上】発動")
         if (this.turn_count >= 6) {
+          console.log("【浮上】発動")
           this.radius_data3['attack'] += 30
           this.radius_data3['defence'] -= 15
           console.log("あなたの攻撃力が30上がり、防御力が15下がった！")
@@ -174,8 +174,8 @@ const top = new Vue({
         }
       }
       if (this.enemy_data1.indexOf(7) != -1) {
-        console.log("【浮上】発動")
         if (this.turn_count >= 6) {
+          console.log("【浮上】(敵)発動")
           this.enemy_data3['attack'] += 30
           this.enemy_data3['defence'] -= 15
           console.log("敵の攻撃力が30上がり、防御力が15下がった！")
@@ -541,7 +541,7 @@ const top = new Vue({
           this.radius_data3["hp"] = this.starthp * 0.5
           console.log("あなたは天国から蘇った！")
           this.skill_flag = true
-          this.radius_revived_flag == true
+          this.radius_revived_flag = true
         }
       }
       if (this.enemy_data1.indexOf(1) != -1) {
@@ -550,7 +550,7 @@ const top = new Vue({
           this.enemy_data3["hp"] = this.enemystarthp * 0.5
           console.log("敵は地獄から蘇った！")
           this.skill_flag = true
-          this.enemy_revived_flag == true
+          this.enemy_revived_flag = true
         }
       }
 
