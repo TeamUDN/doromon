@@ -8,9 +8,17 @@
 <div id="battlePage">
   <div id="battleArea">
     <div class="field">
+      <div class="showHP">
+        <span class="material-icons">favorite</span>
+        <p>[[user_hp]]</p>
+      </div>
       <img src="../static/img/draw_img/{{img}}" id="user_image" class="battle_img" alt="">
     </div>
     <div class="field">
+      <div class="showHP">
+        <span class="material-icons">favorite</span>
+        <p>[[enemy_hp]]</p>
+      </div>
       <img v-if="enemy_info" :src="img_url" id="enemy_image" class="battle_img" alt="">
     </div>
   </div>

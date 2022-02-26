@@ -25,7 +25,9 @@ const top = new Vue({
     enemy_number: 0,
     skill_flag: false,
     img_url: '',
-    log_message: ''
+    log_message: '',
+    user_hp: '',
+    enemy_hp: ''
   },
   mounted() {
     // json取得
@@ -65,7 +67,9 @@ const top = new Vue({
         this.starthp = this.radius_data3["hp"]
         this.enemystarthp = this.enemy_data3["hp"]
         console.log("あなたのHP" + this.starthp)
+        this.user_hp = this.starthp
         console.log("敵のHP" + this.enemystarthp)
+        this.enemy_hp = this.enemystarthp
       }
       //
       if (this.battle_manager_order == 1) {
@@ -132,11 +136,13 @@ const top = new Vue({
       if (this.radius_data1.indexOf(6) != -1) {
         console.log("【雪だるま作ろう】発動")
         this.radius_data3['hp'] += Math.round(this.starthp * 0.03)
+        this.user_hp = this.radius_data3["hp"]
         console.log("あなたの体力が" + Math.round(this.starthp * 0.03) + "回復した！")
         this.log_message = "【雪だるま作ろう】発動　あなたの体力が" + Math.round(this.starthp * 0.03) + "回復した！"
         this.skill_flag = true
       } if (this.enemy_data1.indexOf(6) != -1)
         this.enemy_data3['hp'] += Math.round(this.enemystarthp * 0.03)
+        this.enemy_hp = this.enemy_data3["hp"]
       console.log("敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！")
       this.log_message = "【雪だるま作ろう】発動　敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！"
       this.skill_flag = true
@@ -176,7 +182,9 @@ const top = new Vue({
     },
     end_check: function () {
       console.log("あなたの体力" + this.radius_data3["hp"])
+      this.user_hp = this.radius_data3["hp"]
       console.log("敵の体力" + this.enemy_data3["hp"])
+      this.enemy_hp = this.enemy_data3["hp"]
       if (this.radius_data3["hp"] <= 0 || this.enemy_data3["hp"] <= 0) {
         console.log("hp_0")
       } else if (this.turn_count == 10) {

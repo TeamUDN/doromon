@@ -24,6 +24,20 @@
   align-items: inherit;
 }
 
+.showHP {
+  width: fit-content;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  span {
+    font-size: 4rem;
+    color: $main-red;
+  }
+  p {
+    font-size: 3rem;
+  }
+}
+
 .battle_img {
   width: 20rem;
 }
@@ -40,6 +54,6 @@
   p {
     width: fit-content;
     margin: 0 auto;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 }
