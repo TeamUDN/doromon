@@ -27,7 +27,9 @@ const top = new Vue({
     img_url: '',
     log_message: '',
     user_hp: '',
-    enemy_hp: ''
+    enemy_hp: '',
+    animation_user: 0,
+    animation_enemy: 0,
   },
   mounted() {
     // json取得
@@ -240,9 +242,13 @@ const top = new Vue({
       if (this.radius_data3["hp"] >= this.enemy_data3["hp"]) {
         console.log("あなたの勝利です")
         this.log_message = 'あなたの勝利です！'
+        this.animation_user = 1
+        this.animation_enemy = 2
       } else {
         console.log("あなたの負けです")
         this.log_message = 'あなたの負けです…'
+        this.animation_user = 2
+        this.animation_enemy = 1
       }
       this.end_flag = true
     },
