@@ -23,7 +23,8 @@ const top = new Vue({
     starthp: 0,
     enemystarthp: 0,
     enemy_number: 0,
-    skill_flag: false
+    skill_flag: false,
+    img_url: ''
   },
   mounted() {
     // json取得
@@ -33,6 +34,7 @@ const top = new Vue({
         // 取得したデータを配列に格納
         this.enemy_info = response.data.data
         this.enemy_number = this.getRandomInt(1, this.enemy_info.length)
+        this.img_url = '../static/img/enemy_img/'+this.enemy_info[this.enemy_number].name+'.png'
         console.log(this.enemy_info[this.enemy_number].name)
         this.enemy_data1 = this.enemy_info[this.enemy_number].status.class
         this.enemy_data2 = this.enemy_info[this.enemy_number].status.percentage
@@ -132,7 +134,7 @@ const top = new Vue({
         this.enemy_data3['hp'] += Math.round(this.enemystarthp * 0.03)
       console.log("敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！")
       this.skill_flag = true
-      
+
       //7 submarine
       if (this.radius_data1.indexOf(7) != -1){
         if(this.turn_count >= 6){

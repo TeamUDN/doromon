@@ -11,11 +11,10 @@
 {{s}}
 {{cs}}
 
-<img src="../static/img/top/hikouki.png" id="enemy_image" alt="">
-
-
 <div id="battlePage">
   <p>battle</p>
+  <img src="../static/img/draw_img/{{img}}" id="user_image" alt="">
+  <img v-if="enemy_info" :src="img_url" id="enemy_image" alt="">
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
