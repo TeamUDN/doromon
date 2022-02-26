@@ -181,6 +181,7 @@ const top = new Vue({
           this.radius_data3['defence'] *= 3
           this.radius_data3['speed'] *= 3
           console.log("あなたのステータスが3倍になった")
+          this.log_message = '【動かざる巨塔】発動　あなたのステータスが3倍になった'
           this.skill_flag = true
         }
         console.log("【動かざる巨塔】(敵)発動")
@@ -189,6 +190,7 @@ const top = new Vue({
           this.enemy_data3['defence'] *= 3
           this.enemy_data3['speed'] *= 3
           console.log("敵のステータスが3倍になった")
+          this.log_message = '【動かざる巨塔】発動　敵のステータスが3倍になった'
           this.skill_flag = true
         }
       }
@@ -198,12 +200,14 @@ const top = new Vue({
         console.log("【生存本能】発動")
         this.radius_data3['speed'] += 10
         console.log("あなたの素早さが10上がった")
+        this.log_message = '【生存本能】発動　あなたの素早さが10上がった'
         this.skill_flag = true
       }
       if (this.enemy_data1.indexOf(9) != -1) {
         console.log("【生存本能】(敵)発動")
         this.enemy_data3['speed'] += 10
         console.log("あなたの素早さが10上がった")
+        this.log_message = '【生存本能】発動　敵の素早さが10上がった'
         this.skill_flag = true
       }
 
@@ -261,6 +265,7 @@ const top = new Vue({
             console.log("【Take off!!】発動")
             this.damage_times *= 1.5
             console.log("海属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【Take off!!】発動　海属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -270,6 +275,7 @@ const top = new Vue({
             console.log("【サメマゲドン】発動")
             this.damage_times *= 1.5
             console.log("地属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【サメマゲドン】発動　地属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -279,6 +285,7 @@ const top = new Vue({
             console.log("【パラソル】発動")
             this.damage_times *= 1.5
             console.log("天属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【パラソル】発動　天属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -289,6 +296,7 @@ const top = new Vue({
             console.log("【Take off!!】(敵)発動")
             this.damage_times *= 1.5
             console.log("海属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【Take off!!】発動　海属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -297,6 +305,7 @@ const top = new Vue({
             console.log("【サメマゲドン】(敵)発動")
             this.damage_times *= 1.5
             console.log("地属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【サメマゲドン】発動　地属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -305,6 +314,7 @@ const top = new Vue({
             console.log("【パラソル】発動")
             this.damage_times *= 1.5
             console.log("天属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【パラソル】発動　天属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
