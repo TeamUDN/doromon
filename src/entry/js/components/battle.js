@@ -27,7 +27,9 @@ const top = new Vue({
     img_url: '',
     log_message: '',
     user_hp: '',
-    enemy_hp: ''
+    enemy_hp: '',
+    animation_user: 0,
+    animation_enemy: 0,
   },
   mounted() {
     // json取得
@@ -184,6 +186,7 @@ const top = new Vue({
           this.radius_data3['defence'] *= 3
           this.radius_data3['speed'] *= 3
           console.log("あなたのステータスが3倍になった")
+          this.log_message = '【動かざる巨塔】発動　あなたのステータスが3倍になった'
           this.skill_flag = true
         }
         console.log("【動かざる巨塔】(敵)発動")
@@ -192,6 +195,7 @@ const top = new Vue({
           this.enemy_data3['defence'] *= 3
           this.enemy_data3['speed'] *= 3
           console.log("敵のステータスが3倍になった")
+          this.log_message = '【動かざる巨塔】発動　敵のステータスが3倍になった'
           this.skill_flag = true
         }
       }
@@ -201,12 +205,14 @@ const top = new Vue({
         console.log("【生存本能】発動")
         this.radius_data3['speed'] += 10
         console.log("あなたの素早さが10上がった")
+        this.log_message = '【生存本能】発動　あなたの素早さが10上がった'
         this.skill_flag = true
       }
       if (this.enemy_data1.indexOf(9) != -1) {
         console.log("【生存本能】(敵)発動")
         this.enemy_data3['speed'] += 10
         console.log("敵の素早さが10上がった")
+        this.log_message = '【生存本能】発動　敵の素早さが10上がった'
         this.skill_flag = true
       }
 
@@ -215,12 +221,14 @@ const top = new Vue({
         console.log("【闘争心】発動")
         this.radius_data3['attack'] += 10
         console.log("あなたの攻撃が10上がった")
+        this.log_message = '【闘争心】発動　あなたの攻撃が10上がった'
         this.skill_flag = true
       }
       if (this.enemy_data1.indexOf(9) != -1) {
         console.log("【闘争心】(敵)発動")
         this.enemy_data3['attack'] += 10
         console.log("敵の攻撃が10上がった")
+        this.log_message = '【闘争心】発動　敵の攻撃が10上がった'
         this.skill_flag = true
       }
 
@@ -259,9 +267,13 @@ const top = new Vue({
       if (this.radius_data3["hp"] >= this.enemy_data3["hp"]) {
         console.log("あなたの勝利です")
         this.log_message = 'あなたの勝利です！'
+        this.animation_user = 1
+        this.animation_enemy = 2
       } else {
         console.log("あなたの負けです")
         this.log_message = 'あなたの負けです…'
+        this.animation_user = 2
+        this.animation_enemy = 1
       }
       this.end_flag = true
     },
@@ -274,6 +286,7 @@ const top = new Vue({
             console.log("【Take off!!】発動")
             this.damage_times *= 1.5
             console.log("海属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【Take off!!】発動　海属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -283,6 +296,7 @@ const top = new Vue({
             console.log("【サメマゲドン】発動")
             this.damage_times *= 1.5
             console.log("地属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【サメマゲドン】発動　地属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -292,6 +306,7 @@ const top = new Vue({
             console.log("【パラソル】発動")
             this.damage_times *= 1.5
             console.log("天属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【パラソル】発動　天属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -302,6 +317,7 @@ const top = new Vue({
             console.log("【気を見て敏】発動")
             this.damage_times *= 1.5
             console.log("あなたの先制攻撃、ダメージが1.5倍!")
+            this.log_message = '【気を見て敏】発動　あなたの先制攻撃、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -312,6 +328,7 @@ const top = new Vue({
             console.log("【Take off!!】(敵)発動")
             this.damage_times *= 1.5
             console.log("海属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【Take off!!】発動　海属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -320,6 +337,7 @@ const top = new Vue({
             console.log("【サメマゲドン】(敵)発動")
             this.damage_times *= 1.5
             console.log("地属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【サメマゲドン】発動　地属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -328,6 +346,7 @@ const top = new Vue({
             console.log("【パラソル】発動")
             this.damage_times *= 1.5
             console.log("天属性に攻撃時、ダメージが1.5倍!")
+            this.log_message = '【パラソル】発動　天属性に攻撃時、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -336,6 +355,7 @@ const top = new Vue({
             console.log("【気を見て敏】発動")
             this.damage_times *= 1.5
             console.log("敵の先制攻撃、ダメージが1.5倍!")
+            this.log_message = '【気を見て敏】発動　敵の先制攻撃、ダメージが1.5倍！'
             this.skill_flag = true
           }
         }
@@ -357,6 +377,7 @@ const top = new Vue({
             console.log("【乱気流】(敵)発動")
             damage = 0
             console.log("敵は竜巻の力で攻撃を回避した！")
+            this.log_message = '【乱気流】発動　敵は竜巻の力で攻撃を回避した！'
             this.skill_flag = true
           }
         }
@@ -369,6 +390,7 @@ const top = new Vue({
             this.radius_data3["hp"] -= damage
             damage = 0
             console.log("あなたに" + damage + "のダメージ")
+            this.log_message = '【眼力解放】発動　敵はモナ・リザの真の力で攻撃を反射した！'
             this.skill_flag = true
           }
         }
@@ -379,18 +401,20 @@ const top = new Vue({
             console.log("【番犬ガウガウ】(敵)発動")
             this.enemy_data3['attack'] *= 1.1
             console.log("敵の攻撃が1.1倍になった！")
+            this.log_message = '【番犬ガウガウ】発動　敵の攻撃が1.1倍になった！'
             this.skill_flag = true
           }
         }
 
       }else{//自分がダメージを食らうとき
-        
+
         //12 竜巻
         if (this.radius_data1.indexOf(12) != -1) {
           if (this.getRandomInt(1,100) <= 20) {
             console.log("【乱気流】発動")
             damage = 0
             console.log("あなたは竜巻の力で攻撃を回避した！")
+            this.log_message = '【乱気流】発動　あなたは竜巻の力で攻撃を回避した！'
             this.skill_flag = true
           }
         }
@@ -403,6 +427,7 @@ const top = new Vue({
             this.enemy_data3["hp"] -= damage
             damage = 0
             console.log("敵に" + damage + "のダメージ")
+            this.log_message = '【眼力解放】発動　あなたはモナ・リザの真の力で攻撃を反射した！'
             this.skill_flag = true
           }
         }
@@ -412,11 +437,12 @@ const top = new Vue({
             console.log("【番犬ガウガウ】発動")
             this.radius_data3['attack'] *= 1.1
             console.log("敵の攻撃が1.1倍になった！")
+            this.log_message = '【番犬ガウガウ】発動　敵の攻撃が1.1倍になった！'
             this.skill_flag = true
           }
         }
       }
-      
+
       //スキル使用したかどうか
       if (this.skill_flag == false) {
         //this.battle_manager_order += 1
