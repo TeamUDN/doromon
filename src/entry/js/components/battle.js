@@ -4,7 +4,7 @@ const top = new Vue({
   delimiters: ["[[", "]]"],
   data: {
     enemy_info: null,
-    radius_data1: [5,3,1],
+    radius_data1: [5, 3, 1],
     radius_data2: [],
     radius_data3: [],
     radius_data4: [],
@@ -27,7 +27,9 @@ const top = new Vue({
     img_url: '',
     log_message: '',
     user_hp: '',
-    enemy_hp: ''
+    enemy_hp: '',
+    radius_revived_flag:false,
+    enemy_revived_flag:false
   },
   mounted() {
     // json取得
@@ -45,7 +47,14 @@ const top = new Vue({
         console.log(this.enemy_data1)
         console.log(this.radius_data1)
         this.battle_start()
+        this.radius_data1 = this.radius_data1.replace('[', '');
+        this.radius_data1 = this.radius_data1.replace(']', '');
+        this.radius_data1 = this.radius_data1.replace(/\s+/g, "");
         this.radius_data1 = this.radius_data1.split(',');
+        for (let step = 0; step < this.radius_data1.length; step++) {
+          this.radius_data1[step] = Number(this.radius_data1[step])
+        }
+        console.log(this.radius_data1)
       })
     // 自作キャラのパラメータ取得
     this.radius_data2 = document.getElementById('p').value //確率
@@ -98,13 +107,13 @@ const top = new Vue({
         this.attack(this.enemy)
       }
       if (this.battle_manager_order == 9) {
-        //this.end_check_skill()
+        this.end_check_skill()
       }
       if (this.battle_manager_order == 10) {
         this.end_check()
       }
       this.battle_manager_order += 1
-      if (this.battle_manager_order == 11) {
+      if (this.battle_manager_order >= 11) {
         this.battle_manager_order = 2
       }
     },
@@ -116,13 +125,10 @@ const top = new Vue({
       //5のスキルチェック
       if (this.radius_data1.indexOf(5) != -1) {
         console.log("【摸倣学習】発動")
-        console.log(typeof(this.radius_data1))
-        console.log(typeof(this.enemy_data1[0]))
-        console.log(typeof(this.enemy_data1))
-
         this.radius_data1.push(this.enemy_data1[0])
         console.log("相手の" + this.enemy_data1[0] + "のスキルをコピーした！")
         this.log_message = "相手の" + this.enemy_data1[0] + "のスキルをコピーした！"
+        console.log(this.radius_data1)
         this.skill_flag = true
       } if (this.enemy_data1.indexOf(5) != -1) {
         console.log("【摸倣学習】(敵)発動")
@@ -177,17 +183,19 @@ const top = new Vue({
       }
 
       //9 エッフェル塔
-      if (this.enemy_data1.indexOf(9) != -1) {
+      if (this.radius_data1.indexOf(9) != -1) {
         console.log("【動かざる巨塔】発動")
-        if (this.radius_data3['hp'] / this.starthp <= 0.15) {
+        if ((this.radius_data3['hp'] / this.starthp) <= 0.05) {
           this.radius_data3['attack'] *= 3
           this.radius_data3['defence'] *= 3
           this.radius_data3['speed'] *= 3
           console.log("あなたのステータスが3倍になった")
           this.skill_flag = true
         }
+      }
+      if (this.enemy_data1.indexOf(9) != -1) {
         console.log("【動かざる巨塔】(敵)発動")
-        if (this.enemy_data3['hp'] / this.enemystarthp <= 0.15) {
+        if ((this.enemy_data3['hp'] / this.enemystarthp) <= 0.05) {
           this.enemy_data3['attack'] *= 3
           this.enemy_data3['defence'] *= 3
           this.enemy_data3['speed'] *= 3
@@ -197,13 +205,13 @@ const top = new Vue({
       }
 
       //15 シマウマ
-      if (this.radius_data1.indexOf(9) != -1) {
+      if (this.radius_data1.indexOf(15) != -1) {
         console.log("【生存本能】発動")
         this.radius_data3['speed'] += 10
         console.log("あなたの素早さが10上がった")
         this.skill_flag = true
       }
-      if (this.enemy_data1.indexOf(9) != -1) {
+      if (this.enemy_data1.indexOf(15) != -1) {
         console.log("【生存本能】(敵)発動")
         this.enemy_data3['speed'] += 10
         console.log("敵の素早さが10上がった")
@@ -211,13 +219,13 @@ const top = new Vue({
       }
 
       //8 テディベア
-      if (this.radius_data1.indexOf(9) != -1) {
+      if (this.radius_data1.indexOf(8) != -1) {
         console.log("【闘争心】発動")
         this.radius_data3['attack'] += 10
         console.log("あなたの攻撃が10上がった")
         this.skill_flag = true
       }
-      if (this.enemy_data1.indexOf(9) != -1) {
+      if (this.enemy_data1.indexOf(8) != -1) {
         console.log("【闘争心】(敵)発動")
         this.enemy_data3['attack'] += 10
         console.log("敵の攻撃が10上がった")
@@ -325,7 +333,7 @@ const top = new Vue({
         }
         if (this.enemy_data1.indexOf(13) != -1) {
           if (this.radius_data3["attribute"] == 0) {
-            console.log("【パラソル】発動")
+            console.log("【パラソル】(敵)発動")
             this.damage_times *= 1.5
             console.log("天属性に攻撃時、ダメージが1.5倍!")
             this.skill_flag = true
@@ -333,7 +341,7 @@ const top = new Vue({
         }
         if (this.enemy_data1.indexOf(11) != -1) {
           if (this.radius_data3['speed'] <= this.enemy_data3['speed']) {
-            console.log("【気を見て敏】発動")
+            console.log("【気を見て敏】(敵)発動")
             this.damage_times *= 1.5
             console.log("敵の先制攻撃、ダメージが1.5倍!")
             this.skill_flag = true
@@ -353,7 +361,7 @@ const top = new Vue({
 
         //12 竜巻
         if (this.enemy_data1.indexOf(12) != -1) {
-          if (this.getRandomInt(1,100) <= 20) {
+          if (this.getRandomInt(1, 100) <= 20) {
             console.log("【乱気流】(敵)発動")
             damage = 0
             console.log("敵は竜巻の力で攻撃を回避した！")
@@ -363,7 +371,7 @@ const top = new Vue({
 
         //10 モナ・リザ
         if (this.enemy_data1.indexOf(10) != -1) {
-          if (this.getRandomInt(1,100) <= 20) {
+          if (this.getRandomInt(1, 100) <= 20) {
             console.log("【眼力解放】(敵)発動")
             console.log("敵はモナ・リザの真の力で攻撃を反射した！")
             this.radius_data3["hp"] -= damage
@@ -383,11 +391,11 @@ const top = new Vue({
           }
         }
 
-      }else{//自分がダメージを食らうとき
-        
+      } else {//自分がダメージを食らうとき
+
         //12 竜巻
         if (this.radius_data1.indexOf(12) != -1) {
-          if (this.getRandomInt(1,100) <= 20) {
+          if (this.getRandomInt(1, 100) <= 20) {
             console.log("【乱気流】発動")
             damage = 0
             console.log("あなたは竜巻の力で攻撃を回避した！")
@@ -397,7 +405,7 @@ const top = new Vue({
 
         //10モナ・リザ
         if (this.radius_data1.indexOf(10) != -1) {
-          if (this.getRandomInt(1,100) <= 10) {
+          if (this.getRandomInt(1, 100) <= 10) {
             console.log("【眼力解放】発動")
             console.log("あなたはモナ・リザの真の力で攻撃を反射した！")
             this.enemy_data3["hp"] -= damage
@@ -416,7 +424,7 @@ const top = new Vue({
           }
         }
       }
-      
+
       //スキル使用したかどうか
       if (this.skill_flag == false) {
         //this.battle_manager_order += 1
@@ -461,6 +469,70 @@ const top = new Vue({
         this.log_message = "天属性に効果抜群だ！"
       }
       //return this.damage_times
+    },
+    end_check_skill: function () {
+
+      //12 イルカ
+      if (this.radius_data1.indexOf(3) != -1) {
+        if (turn_count % 2 == 0) {
+          console.log("【群れアタック】発動")
+          var damage = Math.round(this.radius_data3["speed"] * 0.5)
+          this.enemy_data3["hp"] -= damage
+          console.log("敵に" + damage + "のダメージ！")
+          this.skill_flag = true
+        }
+      }
+
+      if (this.enemy_data1.indexOf(3) != -1) {
+        if (turn_count % 2 == 0) {
+          console.log("【群れアタック】(敵)発動")
+          var damage = Math.round(this.enemy_data3["speed"] * 0.5)
+          this.radius_data3["hp"] -= damage
+          console.log("あなたに" + damage + "のダメージ！")
+          this.skill_flag = true
+        }
+      }
+
+      //14 洗濯機
+      if (this.radius_data1.indexOf(14) != -1) {
+        console.log("【漂白剤】発動")
+        this.enemy_data3["attack"] -= 5
+        console.log("敵の攻撃が5下がった！")
+        this.skill_flag = true
+      }
+      if (this.enemy_data1.indexOf(14) != -1) {
+        console.log("【漂白剤】(敵)発動")
+        this.radius_data3["attack"] -= 5
+        console.log("あなたの攻撃が5下がった！")
+        this.skill_flag = true
+      }
+
+      //1 天使
+      if (this.radius_data1.indexOf(1) != -1) {
+        if (this.radius_data3["hp"] <= 0 && this.radius_revived_flag == false) {
+          console.log("【天国の使者】発動")
+          this.radius_data3["hp"] = this.starthp * 0.5
+          console.log("あなたは天国から蘇った！")
+          this.skill_flag = true
+          this.radius_revived_flag == true
+        }
+      }
+      if (this.enemy_data1.indexOf(1) != -1) {
+        if (this.enemy_data3["hp"] <= 0 && this.enemy_revived_flag == false) {
+          console.log("【地獄の使者】(敵)発動")
+          this.enemy_data3["hp"] = this.enemystarthp * 0.5
+          console.log("敵は地獄から蘇った！")
+          this.skill_flag = true
+          this.enemy_revived_flag == true
+        }
+      }
+
+      //スキル使用したかどうか
+      if (this.skill_flag == false) {
+        this.battle_manager_order += 1
+      } else {
+        this.skill_flag = false
+      }
     },
     getRandomInt: function (min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
