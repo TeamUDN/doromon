@@ -4,7 +4,7 @@ const top = new Vue({
   delimiters: ["[[", "]]"],
   data: {
     enemy_info: null,
-    radius_data1: [],
+    radius_data1: [5,3,1],
     radius_data2: [],
     radius_data3: [],
     radius_data4: [],
@@ -39,7 +39,7 @@ const top = new Vue({
         // 取得したデータを配列に格納
         this.enemy_info = response.data.data
         this.enemy_number = this.getRandomInt(1, this.enemy_info.length)
-        this.img_url = '../static/img/enemy_img/'+this.enemy_info[this.enemy_number].name+'.png'
+        this.img_url = '../static/img/enemy_img/' + this.enemy_info[this.enemy_number].name + '.png'
         console.log(this.enemy_info[this.enemy_number].name)
         this.enemy_data1 = this.enemy_info[this.enemy_number].status.class
         this.enemy_data2 = this.enemy_info[this.enemy_number].status.percentage
@@ -47,6 +47,7 @@ const top = new Vue({
         console.log(this.enemy_data1)
         console.log(this.radius_data1)
         this.battle_start()
+        this.radius_data1 = this.radius_data1.split(',');
       })
     // 自作キャラのパラメータ取得
     this.radius_data2 = document.getElementById('p').value //確率
@@ -87,13 +88,13 @@ const top = new Vue({
         this.check_speed()
       }
       if (this.battle_manager_order == 5) {
-        //this.attack_skill(this.player)
+        this.attack_skill(this.player)
       }
       if (this.battle_manager_order == 6) {
         this.attack(this.player)
       }
       if (this.battle_manager_order == 7) {
-        //this.attack_skill(this.enemy)
+        this.attack_skill(this.enemy)
       }
       if (this.battle_manager_order == 8) {
         this.attack(this.enemy)
@@ -117,15 +118,19 @@ const top = new Vue({
       //5のスキルチェック
       if (this.radius_data1.indexOf(5) != -1) {
         console.log("【摸倣学習】発動")
+        console.log(typeof(this.radius_data1))
+        console.log(typeof(this.enemy_data1[0]))
+        console.log(typeof(this.enemy_data1))
+
         this.radius_data1.push(this.enemy_data1[0])
         console.log("相手の" + this.enemy_data1[0] + "のスキルをコピーした！")
-        this.log_message = "【摸倣学習】発動　相手の" + this.enemy_data1[0] + "のスキルをコピーした！"
+        this.log_message = "相手の" + this.enemy_data1[0] + "のスキルをコピーした！"
         this.skill_flag = true
       } if (this.enemy_data1.indexOf(5) != -1) {
         console.log("【摸倣学習】(敵)発動")
         this.enemy_data1.push(this.raidus_data1[0])
         console.log("自分の" + this.enemy_data1[0] + "のスキルをコピーされた！")
-        this.log_message = "【摸倣学習】発動　自分の" + this.enemy_data1[0] + "のスキルをコピーされた！"
+        this.log_message = "自分の" + this.enemy_data1[0] + "のスキルをコピーされた！"
         this.skill_flag = true
       }
       if (this.skill_flag == false) {
@@ -206,8 +211,24 @@ const top = new Vue({
       if (this.enemy_data1.indexOf(9) != -1) {
         console.log("【生存本能】(敵)発動")
         this.enemy_data3['speed'] += 10
-        console.log("あなたの素早さが10上がった")
+        console.log("敵の素早さが10上がった")
         this.log_message = '【生存本能】発動　敵の素早さが10上がった'
+        this.skill_flag = true
+      }
+
+      //8 テディベア
+      if (this.radius_data1.indexOf(9) != -1) {
+        console.log("【闘争心】発動")
+        this.radius_data3['attack'] += 10
+        console.log("あなたの攻撃が10上がった")
+        this.log_message = '【闘争心】発動　あなたの攻撃が10上がった'
+        this.skill_flag = true
+      }
+      if (this.enemy_data1.indexOf(9) != -1) {
+        console.log("【闘争心】(敵)発動")
+        this.enemy_data3['attack'] += 10
+        console.log("敵の攻撃が10上がった")
+        this.log_message = '【闘争心】発動　敵の攻撃が10上がった'
         this.skill_flag = true
       }
 
@@ -290,6 +311,17 @@ const top = new Vue({
           }
         }
 
+        //11 虎
+        if (this.radius_data1.indexOf(11) != -1) {
+          if (this.radius_data3['speed'] >= this.enemy_data3['speed']) {
+            console.log("【気を見て敏】発動")
+            this.damage_times *= 1.5
+            console.log("あなたの先制攻撃、ダメージが1.5倍!")
+            this.log_message = '【気を見て敏】発動　あなたの先制攻撃、ダメージが1.5倍！'
+            this.skill_flag = true
+          }
+        }
+
       } else {
         if (this.enemy_data1.indexOf(0) != -1) {
           if (this.radius_data3["attribute"] == 2) {
@@ -318,7 +350,101 @@ const top = new Vue({
             this.skill_flag = true
           }
         }
+        if (this.enemy_data1.indexOf(11) != -1) {
+          if (this.radius_data3['speed'] <= this.enemy_data3['speed']) {
+            console.log("【気を見て敏】発動")
+            this.damage_times *= 1.5
+            console.log("敵の先制攻撃、ダメージが1.5倍!")
+            this.log_message = '【気を見て敏】発動　敵の先制攻撃、ダメージが1.5倍！'
+            this.skill_flag = true
+          }
+        }
       }
+
+      //スキル使用したかどうか
+      if (this.skill_flag == false) {
+        this.battle_manager_order += 1
+      } else {
+        this.skill_flag = false
+      }
+    },
+    damage_skill: function (damage, former) {
+      if (former == true) {//敵がダメージを食らうとき
+
+        //12 竜巻
+        if (this.enemy_data1.indexOf(12) != -1) {
+          if (this.getRandomInt(1,100) <= 20) {
+            console.log("【乱気流】(敵)発動")
+            damage = 0
+            console.log("敵は竜巻の力で攻撃を回避した！")
+            this.skill_flag = true
+          }
+        }
+
+        //10 モナ・リザ
+        if (this.enemy_data1.indexOf(10) != -1) {
+          if (this.getRandomInt(1,100) <= 20) {
+            console.log("【眼力解放】(敵)発動")
+            console.log("敵はモナ・リザの真の力で攻撃を反射した！")
+            this.radius_data3["hp"] -= damage
+            damage = 0
+            console.log("あなたに" + damage + "のダメージ")
+            this.skill_flag = true
+          }
+        }
+
+        //2 犬
+        if (this.enemy_data1.indexOf(2) != -1) {
+          if (damage > 0) {
+            console.log("【番犬ガウガウ】(敵)発動")
+            this.enemy_data3['attack'] *= 1.1
+            console.log("敵の攻撃が1.1倍になった！")
+            this.skill_flag = true
+          }
+        }
+
+      }else{//自分がダメージを食らうとき
+
+        //12 竜巻
+        if (this.radius_data1.indexOf(12) != -1) {
+          if (this.getRandomInt(1,100) <= 20) {
+            console.log("【乱気流】発動")
+            damage = 0
+            console.log("あなたは竜巻の力で攻撃を回避した！")
+            this.skill_flag = true
+          }
+        }
+
+        //10モナ・リザ
+        if (this.radius_data1.indexOf(10) != -1) {
+          if (this.getRandomInt(1,100) <= 10) {
+            console.log("【眼力解放】発動")
+            console.log("あなたはモナ・リザの真の力で攻撃を反射した！")
+            this.enemy_data3["hp"] -= damage
+            damage = 0
+            console.log("敵に" + damage + "のダメージ")
+            this.skill_flag = true
+          }
+        }
+
+        if (this.radius_data1.indexOf(2) != -1) {
+          if (damage > 0) {
+            console.log("【番犬ガウガウ】発動")
+            this.radius_data3['attack'] *= 1.1
+            console.log("敵の攻撃が1.1倍になった！")
+            this.skill_flag = true
+          }
+        }
+      }
+
+      //スキル使用したかどうか
+      if (this.skill_flag == false) {
+        //this.battle_manager_order += 1
+      } else {
+        this.skill_flag = false
+      }
+
+      return damage
     },
     attack: async function (former) {
       if (former == true) {//自分の攻撃
@@ -326,6 +452,7 @@ const top = new Vue({
         this.defender = this.enemy_data3["attribute"]
         await this.check_attribute()
         var damage = Math.round(this.radius_data3["attack"] * this.damage_times * (1 - (this.enemy_data3["defence"] / 100)))
+        this.damage_skill(damage, former)
         this.enemy_data3["hp"] -= damage
         console.log("敵に" + damage + "のダメージ")
         this.log_message = "敵に" + damage + "のダメージ！"
