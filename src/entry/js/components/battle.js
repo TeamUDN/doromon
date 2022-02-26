@@ -148,7 +148,7 @@ const top = new Vue({
         console.log("敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！")
         this.log_message = "【雪だるま作ろう】発動　敵の体力が" + Math.round(this.enemystarthp * 0.03) + "回復した！"
         this.skill_flag = true
-      },
+      }
       //7 submarine
       if (this.radius_data1.indexOf(7) != -1) {
         console.log("【浮上】発動")
