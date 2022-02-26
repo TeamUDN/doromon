@@ -377,6 +377,7 @@ const top = new Vue({
             console.log("【乱気流】(敵)発動")
             damage = 0
             console.log("敵は竜巻の力で攻撃を回避した！")
+            this.log_message = '【乱気流】発動　敵は竜巻の力で攻撃を回避した！'
             this.skill_flag = true
           }
         }
@@ -389,6 +390,7 @@ const top = new Vue({
             this.radius_data3["hp"] -= damage
             damage = 0
             console.log("あなたに" + damage + "のダメージ")
+            this.log_message = '【眼力解放】発動　敵はモナ・リザの真の力で攻撃を反射した！'
             this.skill_flag = true
           }
         }
@@ -399,6 +401,7 @@ const top = new Vue({
             console.log("【番犬ガウガウ】(敵)発動")
             this.enemy_data3['attack'] *= 1.1
             console.log("敵の攻撃が1.1倍になった！")
+            this.log_message = '【番犬ガウガウ】発動　敵の攻撃が1.1倍になった！'
             this.skill_flag = true
           }
         }
@@ -411,6 +414,7 @@ const top = new Vue({
             console.log("【乱気流】発動")
             damage = 0
             console.log("あなたは竜巻の力で攻撃を回避した！")
+            this.log_message = '【乱気流】発動　あなたは竜巻の力で攻撃を回避した！'
             this.skill_flag = true
           }
         }
@@ -423,6 +427,7 @@ const top = new Vue({
             this.enemy_data3["hp"] -= damage
             damage = 0
             console.log("敵に" + damage + "のダメージ")
+            this.log_message = '【眼力解放】発動　あなたはモナ・リザの真の力で攻撃を反射した！'
             this.skill_flag = true
           }
         }
@@ -432,6 +437,7 @@ const top = new Vue({
             console.log("【番犬ガウガウ】発動")
             this.radius_data3['attack'] *= 1.1
             console.log("敵の攻撃が1.1倍になった！")
+            this.log_message = '【番犬ガウガウ】発動　敵の攻撃が1.1倍になった！'
             this.skill_flag = true
           }
         }
