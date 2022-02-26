@@ -269,6 +269,7 @@ const top = new Vue({
         this.log_message = 'あなたの勝利です！'
         this.animation_user = 1
         this.animation_enemy = 2
+        confetti()
       } else {
         console.log("あなたの負けです")
         this.log_message = 'あなたの負けです…'
