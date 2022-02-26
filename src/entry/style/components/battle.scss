@@ -7,9 +7,26 @@
   margin: 0 auto;
 }
 
+#turnShow {
+  width: 80vw;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: end;
+  p {
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 1.5rem;
+  }
+  #turnNum {
+    font-size: 2.5rem;
+  }
+}
+
 #battleArea {
   width: 80vw;
-  height: calc(100vh - 14rem);
+  height: calc(100vh - 28rem);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,6 +39,20 @@
   flex-direction: column;
   gap: 2rem;
   align-items: inherit;
+}
+
+.showHP {
+  width: fit-content;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  span {
+    font-size: 4rem;
+    color: $main-red;
+  }
+  p {
+    font-size: 3rem;
+  }
 }
 
 .battle_img {
@@ -40,5 +71,6 @@
   p {
     width: fit-content;
     margin: 0 auto;
+    font-size: 1.8rem;
   }
 }
