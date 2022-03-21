@@ -1,23 +1,22 @@
-# DockerでFlaskを動かす最小限の実装
+# どろもん！
+![ホーム画](./src/static/img/ogp.png)
 
-## 起動コマンド
-```
-docker compose up
-```
-## イメージ情報の取得
-```
-docker images
-```
-## コンテナの削除(再ビルドしたい時等)
-```
-docker rmi <IMAGE ID>　-f
-```
+## &#x2728; 作品URL
+https://doromon.herokuapp.com/
 
-## webpackの開発用ビルド
-```
-npm run watch
-```
-## webpackのビルド
-```
-npm run build
-```
+## &#x1f973; 概要
+制限時間20秒以内に描いた絵をAIが診断し、あなたの絵が敵と戦う**お絵かきバトルゲーム**です！
+
+## &#x1f4bb; 使用技術
+- HTML
+- Sass
+- JavaScript
+- Vue.js
+- Python
+- PyTorch
+- Flask
+
+## &#x1f60e; 制作メンバー
+- Yuuna Yanagida
+- Leon Kunishi
+- Ryunosuke Ikeda
